@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Questionário de Redes de Computadores – OSI, TCP/IP e Protocolos</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #eff6ff;
+      --border: #cbd5e1;
+      --text: #1e293b;
+      --muted: #64748b;
+      --success: #15803d;
+      --success-bg: #dcfce7;
+      --error: #b91c1c;
+      --error-bg: #fee2e2;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f8fafc;
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 2.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      border-top: 6px solid var(--primary);
+    }
+
+    header {
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 1.6rem;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .question-card {
+      margin-bottom: 1.75rem;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background-color: #ffffff;
+      transition: border-color 0.2s;
+    }
+
+    .question-title {
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      padding: 0.6rem 0.85rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.15s, border-color 0.15s;
+    }
+
+    .option-label:hover {
+      background-color: var(--primary-light);
+      border-color: #93c5fd;
+    }
+
+    .option-label input[type="radio"] {
+      margin-top: 0.28rem;
+      accent-color: var(--primary);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 2px solid var(--border);
+    }
+
+    button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    button:hover {
+      opacity: 0.92;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-secondary {
+      background-color: #e2e8f0;
+      color: var(--text);
+    }
+
+    #resultado {
+      margin-top: 1.5rem;
+      padding: 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      display: none;
+    }
+
+    .correct {
+      background-color: var(--success-bg) !important;
+      border-color: var(--success) !important;
+      color: var(--success);
+    }
+
+    .incorrect {
+      background-color: var(--error-bg) !important;
+      border-color: var(--error) !important;
+      color: var(--error);
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        padding: 0;
+      }
+      .container {
+        box-shadow: none;
+        border: none;
+        padding: 0;
+      }
+      .actions, #resultado {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="container">
+    <header>
+      <h1>Questionário de Redes de Computadores</h1>
+      <p>Tema: Modelo de Referência OSI, Arquitetura TCP/IP e Protocolos de Rede</p>
+    </header>
+
+    <form id="quizForm">
+      <!-- Questão 1 -->
+      <div class="question-card" data-question="q1">
+        <p class="question-title">1. Qual é a principal função da divisão em camadas nas arquiteturas de redes de computadores (como OSI e TCP/IP)?</p>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q1" value="A"> A) Aumentar a velocidade física dos cabos de fibra óptica.</label>
+          <label class="option-label"><input type="radio" name="q1" value="B"> B) Garantir modularidade, interoperabilidade e facilitar a manutenção isolada de tecnologias.</label>
+          <label class="option-label"><input type="radio" name="q1" value="C"> C) Eliminar a necessidade de endereçamento lógico na Internet.</label>
+          <label class="option-label"><input type="radio" name="q1" value="D"> D) Substituir roteadores por switches em redes de longa distância.</label>
+        </div>
+      </div>
+
+      <!-- Questão 2 -->
+      <div class="question-card" data-question="q2">
+        <p class="question-title">2. No Modelo de Referência OSI, qual camada é responsável pelo roteamento de pacotes e pelo endereçamento lógico (IP)?</p>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q2" value="A"> A) Camada Física (Camada 1)</label>
+          <label class="option-label"><input type="radio" name="q2" value="B"> B) Camada de Enlace (Camada 2)</label>
+          <label class="option-label"><input type="radio" name="q2" value="C"> C) Camada de Rede (Camada 3)</label>
+          <label class="option-label"><input type="radio" name="q2" value="D"> D) Camada de Transporte (Camada 4)</label>
+        </div>
+      </div>
+
+      <!-- Questão 3 -->
+      <div class="question-card" data-question="q3">
+        <p class="question-title">3. Como é chamada a Unidade de Dados de Protocolo (PDU) manipulada especificamente na Camada de Enlace (Camada 2) do modelo OSI?</p>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q3" value="A"> A) Bit</label>
+          <label class="option-label"><input type="radio" name="q3" value="B"> B) Quadro (Frame)</label>
+          <label class="option-label"><input type="radio" name="q3" value="C"> C) Pacote</label>
+          <label class="option-label"><input type="radio" name="q3" value="D"> D) Segmento</label>
+        </div>
+      </div>
+
+      <!-- Questão 4 -->
+      <div class="question-card" data-question="q4">
+        <p class="question-title">4. Qual camada do Modelo OSI tem como responsabilidade realizar a criptografia, a compressão e a tradução de formatos de dados para a aplicação?</p>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q4" value="A"> A) Camada de Sessão</label>
+          <label class="option-label"><input type="radio" name="q4" value="B"> B) Camada de Transporte</label>
+          <label class="option-label"><input type="radio" name="q4" value="C"> C) Camada de Apresentação</label>
+          <label class="option-label"><input type="radio" name="q4" value="D"> D) Camada de Rede</label>
+        </div>
+      </div>
+
+      <!-- Questão 5 -->
+      <div class="question-card" data-question="q5">
+        <p class="question-title">5. Sobre o processo de encapsulamento de dados durante a transmissão em uma rede, assinale a sequência correta do topo (origem) até o meio físico:</p>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q5" value="A"> A) Bits &rarr; Quadro &rarr; Pacote &rarr; Segmento &rarr; Dados</label>
+          <label class="option-label"><input type="radio" name="q5" value="B"> B) Dados &rarr; Pacote &rarr; Segmento &rarr; Quadro &rarr; Bits</label>
+          <label class="option-label"><input type="radio" name="q5" value="C"> C) Dados &rarr; Segmento &rarr; Pacote &rarr; Quadro &rarr; Bits</label>
+          <label class="option-label"><input type="radio" name="q5" value="D"> D) Segmento &rarr; Dados &rarr; Quadro &rarr; Pacote &rarr; Bits</label>
+        </div>
+      </div>
+
+      <!-- Questão 6 -->
+      <div class="question-card" data-question="q6">
+        <p class="question-title">6. Ao comparar o Modelo OSI (7 camadas) com a arquitetura TCP/IP (4 camadas), quais camadas do modelo OSI são absorvidas pela Camada de Aplicação do modelo TCP/IP?</p>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q6" value="A"> A) Física e Enlace</label>
+          <label class="option-label"><input type="radio" name="q6" value="B"> B) Rede e Transporte</label>
+          <label class="option-label"><input type="radio" name="q6" value="C"> C) Sessão, Apresentação e Aplicação</label>
+          <label class="option-label"><input type="radio" name="q6" value="D"> D) Transporte, Sessão e Apresentação</label>
+        </div>
+      </div>
+
+      <!-- Questão 7 -->
+      <div class="question-card" data-question="q7">
+        <p class="question-title">7. Qual das alternativas abaixo apresenta uma característica exclusiva do protocolo TCP em comparação ao UDP?</p>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q7" value="A"> A) Não estabelece conexão prévia antes de enviar os dados.</label>
+          <label class="option-label"><input type="radio" name="q7" value="B"> B) Prioriza a menor latência possível, mesmo que ocorra perda de pacotes.</label>
+          <label class="option-label"><input type="radio" name="q7" value="C"> C) Garante entrega confiável, ordenação dos segmentos e controle de fluxo via Three-Way Handshake.</label>
+          <label class="option-label"><input type="radio" name="q7" value="D"> D) É utilizado exclusivamente para consultas rápidas de resolução de nomes (DNS).</label>
+        </div>
+      </div>
+
+      <!-- Questão 8 -->
+      <div class="question-card" data-question="q8">
+        <p class="question-title">8. Qual é a sequência correta de flags trocadas durante o estabelecimento de uma conexão TCP (Three-Way Handshake)?</p>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q8" value="A"> A) ACK &rarr; SYN &rarr; FIN</label>
+          <label class="option-label"><input type="radio" name="q8" value="B"> B) SYN &rarr; SYN-ACK &rarr; ACK</label>
+          <label class="option-label"><input type="radio" name="q8" value="C"> C) SYN &rarr; ACK &rarr; RST</label>
+          <label class="option-label"><input type="radio" name="q8" value="D"> D) FIN &rarr; ACK &rarr; SYN</label>
+        </div>
+      </div>
+
+      <!-- Questão 9 -->
+      <div class="question-card" data-question="q9">
+        <p class="question-title">9. Um usuário digita "www.exemplo.com.br" no navegador. Qual protocolo é acionado para traduzir esse nome de domínio em um endereço IP compreensível pelos roteadores?</p>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q9" value="A"> A) DHCP</label>
+          <label class="option-label"><input type="radio" name="q9" value="B"> B) ICMP</label>
+          <label class="option-label"><input type="radio" name="q9" value="C"> C) ARP</label>
+          <label class="option-label"><input type="radio" name="q9" value="D"> D) DNS</label>
+        </div>
+      </div>
+
+      <!-- Questão 10 -->
+      <div class="question-card" data-question="q10">
+        <p class="question-title">10. Qual protocolo da camada de aplicação é responsável por atribuir automaticamente endereço IP, máscara de sub-rede e gateway padrão aos dispositivos conectados em uma rede local?</p>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q10" value="A"> A) DHCP (Dynamic Host Configuration Protocol)</label>
+          <label class="option-label"><input type="radio" name="q10" value="B"> B) HTTP (Hypertext Transfer Protocol)</label>
+          <label class="option-label"><input type="radio" name="q10" value="C"> C) SSH (Secure Shell)</label>
+          <label class="option-label"><input type="radio" name="q10" value="D"> D) SMTP (Simple Mail Transfer Protocol)</label>
+        </div>
+      </div>
+
+      <!-- Questão 11 -->
+      <div class="question-card" data-question="q11">
+        <p class="question-title">11. Qual protocolo opera na camada de rede sendo amplamente utilizado por ferramentas de diagnóstico como o comando "ping" para testar conectividade e relatar erros de entrega?</p>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q11" value="A"> A) TCP</label>
+          <label class="option-label"><input type="radio" name="q11" value="B"> B) UDP</label>
+          <label class="option-label"><input type="radio" name="q11" value="C"> C) ICMP</label>
+          <label class="option-label"><input type="radio" name="q11" value="D"> D) HTTPS</label>
+        </div>
+      </div>
+
+      <!-- Questão 12 -->
+      <div class="question-card" data-question="q12">
+        <p class="question-title">12. Associe corretamente os protocolos de aplicação às suas respectivas portas padrão TCP:</p>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="q12" value="A"> A) HTTP (80), HTTPS (443), SSH (22)</label>
+          <label class="option-label"><input type="radio" name="q12" value="B"> B) HTTP (22), HTTPS (80), SSH (443)</label>
+          <label class="option-label"><input type="radio" name="q12" value="C"> C) HTTP (53), HTTPS (443), SSH (21)</label>
+          <label class="option-label"><input type="radio" name="q12" value="D"> D) HTTP (80), HTTPS (25), SSH (22)</label>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn-primary" onclick="corrigirQuiz()">Corrigir Questionário</button>
+        <button type="button" class="btn-secondary" onclick="limparQuiz()">Limpar Respostas</button>
+        <button type="button" class="btn-secondary" onclick="window.print()">Imprimir / Salvar PDF</button>
+      </div>
+
+      <div id="resultado"></div>
+    </form>
+  </main>
+
+  <script>
+    const gabarito = {
+      q1: 'B', q2: 'C', q3: 'B', q4: 'C',
+      q5: 'C', q6: 'C', q7: 'C', q8: 'B',
+      q9: 'D', q10: 'A', q11: 'C', q12: 'A'
+    };
+
+    function corrigirQuiz() {
+      let acertos = 0;
+      const total = Object.keys(gabarito).length;
+
+      for (const [questao, correta] of Object.entries(gabarito)) {
+        const card = document.querySelector(`[data-question="${questao}"]`);
+        const selecionada = document.querySelector(`input[name="${questao}"]:checked`);
+        const labels = card.querySelectorAll('.option-label');
+
+        labels.forEach(label => label.classList.remove('correct', 'incorrect'));
+
+        labels.forEach(label => {
+          const input = label.querySelector('input');
+          if (input.value === correta) {
+            label.classList.add('correct');
+          } else if (selecionada && input.value === selecionada.value) {
+            label.classList.add('incorrect');
+          }
+        });
+
+        if (selecionada && selecionada.value === correta) {
+          acertos++;
+        }
+      }
+
+      const resultadoEl = document.getElementById('resultado');
+      const percentual = Math.round((acertos / total) * 100);
+      resultadoEl.style.display = 'block';
+      resultadoEl.style.backgroundColor = percentual >= 60 ? '#dcfce7' : '#fee2e2';
+      resultadoEl.style.color = percentual >= 60 ? '#15803d' : '#b91c1c';
+      resultadoEl.textContent = `Resultado: Você acertou ${acertos} de ${total} questões (${percentual}%).`;
+    }
+
+    function limparQuiz() {
+      document.getElementById('quizForm').reset();
+      document.querySelectorAll('.option-label').forEach(label => {
+        label.classList.remove('correct', 'incorrect');
+      });
+      const resultadoEl = document.getElementById('resultado');
+      resultadoEl.style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
