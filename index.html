@@ -1,455 +1,802 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atividade de Redes de Computadores – OSI, TCP/IP e Protocolos</title>
-  <style>
-    :root {
-      --primary: #1e3a8a;
-      --primary-light: #eff6ff;
-      --border: #cbd5e1;
-      --text: #1e293b;
-      --muted: #64748b;
-      --success: #15803d;
-      --success-bg: #dcfce7;
-      --warning: #b45309;
-      --warning-bg: #fef3c7;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background-color: #f8fafc;
-      color: var(--text);
-      line-height: 1.6;
-      padding: 2rem 1rem;
-    }
-
-    .container {
-      max-width: 850px;
-      margin: 0 auto;
-      background: #ffffff;
-      padding: 2.5rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-      border-top: 6px solid var(--primary);
-    }
-
-    header {
-      border-bottom: 2px solid var(--border);
-      padding-bottom: 1.25rem;
-      margin-bottom: 1.75rem;
-    }
-
-    header h1 {
-      font-size: 1.6rem;
-      color: var(--primary);
-      margin-bottom: 0.4rem;
-    }
-
-    header p {
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .student-info {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 1rem;
-      background-color: var(--primary-light);
-      padding: 1.25rem;
-      border-radius: 8px;
-      border: 1px solid #bfdbfe;
-      margin-bottom: 2rem;
-    }
-
-    @media (max-width: 600px) {
-      .student-info {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .field-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-
-    .field-group label {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--primary);
-    }
-
-    .field-group input {
-      padding: 0.65rem 0.85rem;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      font-size: 0.95rem;
-      background-color: #ffffff;
-    }
-
-    .field-group input:focus {
-      outline: none;
-      border-color: var(--primary);
-    }
-
-    .question-card {
-      margin-bottom: 1.75rem;
-      padding: 1.25rem;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background-color: #ffffff;
-      transition: border-color 0.2s, background-color 0.2s;
-    }
-
-    .question-card.unanswered {
-      border-color: #f59e0b;
-      background-color: #fffbeb;
-    }
-
-    .question-title {
-      font-weight: 600;
-      font-size: 1.05rem;
-      margin-bottom: 0.9rem;
-    }
-
-    .options {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .option-label {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.65rem;
-      padding: 0.6rem 0.85rem;
-      border: 1px solid #e2e8f0;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.15s, border-color 0.15s;
-    }
-
-    .option-label:hover {
-      background-color: var(--primary-light);
-      border-color: #93c5fd;
-    }
-
-    .option-label input[type="radio"] {
-      margin-top: 0.28rem;
-      accent-color: var(--primary);
-    }
-
-    .actions {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 2rem;
-      padding-top: 1.5rem;
-      border-top: 2px solid var(--border);
-    }
-
-    button {
-      padding: 0.85rem 2rem;
-      font-size: 1.05rem;
-      font-weight: 600;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: opacity 0.2s;
-      background-color: var(--primary);
-      color: #ffffff;
-    }
-
-    button:hover:not(:disabled) {
-      opacity: 0.92;
-    }
-
-    button:disabled {
-      background-color: #94a3b8;
-      cursor: not-allowed;
-    }
-
-    #alerta {
-      margin-top: 1.25rem;
-      padding: 1rem 1.25rem;
-      border-radius: 8px;
-      background-color: var(--warning-bg);
-      border: 1px solid #f59e0b;
-      color: var(--warning);
-      font-weight: 600;
-      display: none;
-    }
-
-    #comprovante {
-      margin-top: 1.5rem;
-      padding: 1.75rem;
-      border-radius: 8px;
-      background-color: var(--success-bg);
-      border: 2px solid var(--success);
-      color: #14532d;
-      display: none;
-    }
-
-    #comprovante h2 {
-      font-size: 1.25rem;
-      margin-bottom: 0.5rem;
-      color: var(--success);
-    }
-
-    #comprovante p {
-      margin-bottom: 0.4rem;
-      font-size: 0.95rem;
-    }
-
-    .resumo-respostas {
-      margin-top: 1rem;
-      padding: 0.85rem;
-      background-color: #ffffff;
-      border-radius: 6px;
-      border: 1px solid #86efac;
-      font-family: monospace;
-      font-size: 0.9rem;
-      color: var(--text);
-    }
-  </style>
-</head>
-<body>
-
-  <main class="container">
-    <header>
-      <h1>Atividade Avaliativa – Redes de Computadores</h1>
-      <p>Tema: Modelo de Referência OSI, Arquitetura TCP/IP e Protocolos de Rede</p>
-    </header>
-
-    <form id="quizForm" novalidate>
-      <div class="student-info">
-        <div class="field-group">
-          <label for="alunoNome">Nome Completo do Estudante *</label>
-          <input type="text" id="alunoNome" placeholder="Digite seu nome completo" required>
-        </div>
-        <div class="field-group">
-          <label for="alunoTurma">Turma *</label>
-          <input type="text" id="alunoTurma" placeholder="Ex.: TDS 2026" required>
-        </div>
-      </div>
-
-      <!-- Questão 1 -->
-      <div class="question-card" data-question="q1">
-        <p class="question-title">1. Qual é a principal função da divisão em camadas nas arquiteturas de redes de computadores (como OSI e TCP/IP)?</p>
-        <div class="options">
-          <label class="option-label"><input type="radio" name="q1" value="A"> A) Aumentar a velocidade física dos cabos de fibra óptica.</label>
-          <label class="option-label"><input type="radio" name="q1" value="B"> B) Garantir modularidade, interoperabilidade e facilitar a manutenção isolada de tecnologias.</label>
-          <label class="option-label"><input type="radio" name="q1" value="C"> C) Eliminar a necessidade de endereçamento lógico na Internet.</label>
-          <label class="option-label"><input type="radio" name="q1" value="D"> D) Substituir roteadores por switches em redes de longa distância.</label>
-        </div>
-      </div>
-
-      <!-- Questão 2 -->
-      <div class="question-card" data-question="q2">
-        <p class="question-title">2. No Modelo de Referência OSI, qual camada é responsável pelo roteamento de pacotes e pelo endereçamento lógico (IP)?</p>
-        <div class="options">
-          <label class="option-label"><input type="radio" name="q2" value="A"> A) Camada Física (Camada 1)</label>
-          <label class="option-label"><input type="radio" name="q2" value="B"> B) Camada de Enlace (Camada 2)</label>
-          <label class="option-label"><input type="radio" name="q2" value="C"> C) Camada de Rede (Camada 3)</label>
-          <label class="option-label"><input type="radio" name="q2" value="D"> D) Camada de Transporte (Camada 4)</label>
-        </div>
-      </div>
-
-      <!-- Questão 3 -->
-      <div class="question-card" data-question="q3">
-        <p class="question-title">3. Como é chamada a Unidade de Dados de Protocolo (PDU) manipulada especificamente na Camada de Enlace (Camada 2) do modelo OSI?</p>
-        <div class="options">
-          <label class="option-label"><input type="radio" name="q3" value="A"> A) Bit</label>
-          <label class="option-label"><input type="radio" name="q3" value="B"> B) Quadro (Frame)</label>
-          <label class="option-label"><input type="radio" name="q3" value="C"> C) Pacote</label>
-          <label class="option-label"><input type="radio" name="q3" value="D"> D) Segmento</label>
-        </div>
-      </div>
-
-      <!-- Questão 4 -->
-      <div class="question-card" data-question="q4">
-        <p class="question-title">4. Qual camada do Modelo OSI tem como responsabilidade realizar a criptografia, a compressão e a tradução de formatos de dados para a aplicação?</p>
-        <div class="options">
-          <label class="option-label"><input type="radio" name="q4" value="A"> A) Camada de Sessão</label>
-          <label class="option-label"><input type="radio" name="q4" value="B"> B) Camada de Transporte</label>
-          <label class="option-label"><input type="radio" name="q4" value="C"> C) Camada de Apresentação</label>
-          <label class="option-label"><input type="radio" name="q4" value="D"> D) Camada de Rede</label>
-        </div>
-      </div>
-
-      <!-- Questão 5 -->
-      <div class="question-card" data-question="q5">
-        <p class="question-title">5. Sobre o processo de encapsulamento de dados durante a transmissão em uma rede, assinale a sequência correta do topo (origem) até o meio físico:</p>
-        <div class="options">
-          <label class="option-label"><input type="radio" name="q5" value="A"> A) Bits &rarr; Quadro &rarr; Pacote &rarr; Segmento &rarr; Dados</label>
-          <label class="option-label"><input type="radio" name="q5" value="B"> B) Dados &rarr; Pacote &rarr; Segmento &rarr; Quadro &rarr; Bits</label>
-          <label class="option-label"><input type="radio" name="q5" value="C"> C) Dados &rarr; Segmento &rarr; Pacote &rarr; Quadro &rarr; Bits</label>
-          <label class="option-label"><input type="radio" name="q5" value="D"> D) Segmento &rarr; Dados &rarr; Quadro &rarr; Pacote &rarr; Bits</label>
-        </div>
-      </div>
-
-      <!-- Questão 6 -->
-      <div class="question-card" data-question="q6">
-        <p class="question-title">6. Ao comparar o Modelo OSI (7 camadas) com a arquitetura TCP/IP (4 camadas), quais camadas do modelo OSI são absorvidas pela Camada de Aplicação do modelo TCP/IP?</p>
-        <div class="options">
-          <label class="option-label"><input type="radio" name="q6" value="A"> A) Física e Enlace</label>
-          <label class="option-label"><input type="radio" name="q6" value="B"> B) Rede e Transporte</label>
-          <label class="option-label"><input type="radio" name="q6" value="C"> C) Sessão, Apresentação e Aplicação</label>
-          <label class="option-label"><input type="radio" name="q6" value="D"> D) Transporte, Sessão e Apresentação</label>
-        </div>
-      </div>
-
-      <!-- Questão 7 -->
-      <div class="question-card" data-question="q7">
-        <p class="question-title">7. Qual das alternativas abaixo apresenta uma característica exclusiva do protocolo TCP em comparação ao UDP?</p>
-        <div class="options">
-          <label class="option-label"><input type="radio" name="q7" value="A"> A) Não estabelece conexão prévia antes de enviar os dados.</label>
-          <label class="option-label"><input type="radio" name="q7" value="B"> B) Prioriza a menor latência possível, mesmo que ocorra perda de pacotes.</label>
-          <label class="option-label"><input type="radio" name="q7" value="C"> C) Garante entrega confiável, ordenação dos segmentos e controle de fluxo via Three-Way Handshake.</label>
-          <label class="option-label"><input type="radio" name="q7" value="D"> D) É utilizado exclusivamente para consultas rápidas de resolução de nomes (DNS).</label>
-        </div>
-      </div>
-
-      <!-- Questão 8 -->
-      <div class="question-card" data-question="q8">
-        <p class="question-title">8. Qual é a sequência correta de flags trocadas durante o estabelecimento de uma conexão TCP (Three-Way Handshake)?</p>
-        <div class="options">
-          <label class="option-label"><input type="radio" name="q8" value="A"> A) ACK &rarr; SYN &rarr; FIN</label>
-          <label class="option-label"><input type="radio" name="q8" value="B"> B) SYN &rarr; SYN-ACK &rarr; ACK</label>
-          <label class="option-label"><input type="radio" name="q8" value="C"> C) SYN &rarr; ACK &rarr; RST</label>
-          <label class="option-label"><input type="radio" name="q8" value="D"> D) FIN &rarr; ACK &rarr; SYN</label>
-        </div>
-      </div>
-
-      <!-- Questão 9 -->
-      <div class="question-card" data-question="q9">
-        <p class="question-title">9. Um usuário digita "www.exemplo.com.br" no navegador. Qual protocolo é acionado para traduzir esse nome de domínio em um endereço IP compreensível pelos roteadores?</p>
-        <div class="options">
-          <label class="option-label"><input type="radio" name="q9" value="A"> A) DHCP</label>
-          <label class="option-label"><input type="radio" name="q9" value="B"> B) ICMP</label>
-          <label class="option-label"><input type="radio" name="q9" value="C"> C) ARP</label>
-          <label class="option-label"><input type="radio" name="q9" value="D"> D) DNS</label>
-        </div>
-      </div>
-
-      <!-- Questão 10 -->
-      <div class="question-card" data-question="q10">
-        <p class="question-title">10. Qual protocolo da camada de aplicação é responsável por atribuir automaticamente endereço IP, máscara de sub-rede e gateway padrão aos dispositivos conectados em uma rede local?</p>
-        <div class="options">
-          <label class="option-label"><input type="radio" name="q10" value="A"> A) DHCP (Dynamic Host Configuration Protocol)</label>
-          <label class="option-label"><input type="radio" name="q10" value="B"> B) HTTP (Hypertext Transfer Protocol)</label>
-          <label class="option-label"><input type="radio" name="q10" value="C"> C) SSH (Secure Shell)</label>
-          <label class="option-label"><input type="radio" name="q10" value="D"> D) SMTP (Simple Mail Transfer Protocol)</label>
-        </div>
-      </div>
-
-      <!-- Questão 11 -->
-      <div class="question-card" data-question="q11">
-        <p class="question-title">11. Qual protocolo opera na camada de rede sendo amplamente utilizado por ferramentas de diagnóstico como o comando "ping" para testar conectividade e relatar erros de entrega?</p>
-        <div class="options">
-          <label class="option-label"><input type="radio" name="q11" value="A"> A) TCP</label>
-          <label class="option-label"><input type="radio" name="q11" value="B"> B) UDP</label>
-          <label class="option-label"><input type="radio" name="q11" value="C"> C) ICMP</label>
-          <label class="option-label"><input type="radio" name="q11" value="D"> D) HTTPS</label>
-        </div>
-      </div>
-
-      <!-- Questão 12 -->
-      <div class="question-card" data-question="q12">
-        <p class="question-title">12. Associe corretamente os protocolos de aplicação às suas respectivas portas padrão TCP:</p>
-        <div class="options">
-          <label class="option-label"><input type="radio" name="q12" value="A"> A) HTTP (80), HTTPS (443), SSH (22)</label>
-          <label class="option-label"><input type="radio" name="q12" value="B"> B) HTTP (22), HTTPS (80), SSH (443)</label>
-          <label class="option-label"><input type="radio" name="q12" value="C"> C) HTTP (53), HTTPS (443), SSH (21)</label>
-          <label class="option-label"><input type="radio" name="q12" value="D"> D) HTTP (80), HTTPS (25), SSH (22)</label>
-        </div>
-      </div>
-
-      <div class="actions">
-        <button type="button" id="btnEnviar" onclick="enviarAtividade()">Enviar Atividade ao Professor</button>
-      </div>
-
-      <div id="alerta"></div>
-
-      <div id="comprovante">
-        <h2>&#10004; Atividade realizada e enviada ao professor!</h2>
-        <p><strong>Estudante:</strong> <span id="confNome"></span></p>
-        <p><strong>Turma:</strong> <span id="confTurma"></span></p>
-        <p><strong>Data e Hora do Envio:</strong> <span id="confData"></span></p>
-        <div class="resumo-respostas" id="confRespostas"></div>
-      </div>
-    </form>
-  </main>
-
-  <script>
-    function enviarAtividade() {
-      const nomeInput = document.getElementById('alunoNome');
-      const turmaInput = document.getElementById('alunoTurma');
-      const alertaEl = document.getElementById('alerta');
-      const comprovanteEl = document.getElementById('comprovante');
-
-      const nome = nomeInput.value.trim();
-      const turma = turmaInput.value.trim();
-
-      alertaEl.style.display = 'none';
-
-      if (!nome || !turma) {
-        alertaEl.textContent = 'Por favor, preencha seu Nome Completo e sua Turma antes de enviar a atividade.';
-        alertaEl.style.display = 'block';
-        (!nome ? nomeInput : turmaInput).focus();
-        return;
-      }
-
-      const totalQuestoes = 12;
-      const respostas = [];
-      let pendentes = 0;
-
-      for (let i = 1; i <= totalQuestoes; i++) {
-        const card = document.querySelector(`[data-question="q${i}"]`);
-        const selecionada = document.querySelector(`input[name="q${i}"]:checked`);
-
-        card.classList.remove('unanswered');
-
-        if (!selecionada) {
-          card.classList.add('unanswered');
-          pendentes++;
-        } else {
-          respostas.push(`Q${i}: ${selecionada.value}`);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VA 2 - Big Data (Apache Spark) | UNIDESC</title>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e3a8a;
+            --accent: #2563eb;
+            --danger: #dc2626;
+            --warning: #d97706;
+            --success: #16a34a;
+            --bg: #f1f5f9;
+            --card: #ffffff;
+            --text: #1e293b;
+            --border: #cbd5e1;
         }
-      }
 
-      if (pendentes > 0) {
-        alertaEl.textContent = `Você ainda não respondeu ${pendentes} questão(ões) destacada(s) em amarelo. Responda todas antes de enviar.`;
-        alertaEl.style.display = 'block';
-        return;
-      }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
 
-      // Bloqueia campos e botão após o envio
-      nomeInput.disabled = true;
-      turmaInput.disabled = true;
-      document.querySelectorAll('input[type="radio"]').forEach(radio => radio.disabled = true);
-      const btnEnviar = document.getElementById('btnEnviar');
-      btnEnviar.disabled = true;
-      btnEnviar.textContent = 'Atividade Enviada';
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            user-select: none; /* Impede seleção de texto para dificultar cópia */
+        }
 
-      // Exibe mensagem de confirmação
-      const agora = new Date().toLocaleString('pt-BR');
-      document.getElementById('confNome').textContent = nome;
-      document.getElementById('confTurma').textContent = turma;
-      document.getElementById('confData').textContent = agora;
-      document.getElementById('confRespostas').textContent = `Respostas registradas: ${respostas.join(' | ')}`;
+        /* Barra Superior Fixa */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--primary);
+            color: #fff;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
 
-      comprovanteEl.style.display = 'block';
-      comprovanteEl.scrollIntoView({ behavior: 'smooth' });
-    }
-  </script>
+        .top-bar .info {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
 
+        .timer-box {
+            background: #1e293b;
+            border: 1px solid #475569;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        .timer-box.warning {
+            color: #fbbf24;
+            border-color: #fbbf24;
+        }
+
+        .timer-box.danger {
+            color: #ef4444;
+            border-color: #ef4444;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 85px auto 40px;
+            padding: 0 16px;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 10px;
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+        }
+
+        /* Cabeçalho Institucional */
+        .header-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .header-item strong {
+            color: var(--secondary);
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .rules-box {
+            background: #fef2f2;
+            border-left: 4px solid var(--danger);
+            padding: 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 0.92rem;
+        }
+
+        .rules-box h3 {
+            color: var(--danger);
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .rules-box ul {
+            margin-left: 20px;
+        }
+
+        .rules-box li {
+            margin-bottom: 6px;
+        }
+
+        /* Formulário de Identificação */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+        }
+
+        .btn-submit {
+            background: var(--success);
+            font-size: 1.1rem;
+            padding: 15px;
+        }
+
+        .btn-submit:hover {
+            background: #15803d;
+        }
+
+        /* Questões */
+        .question-card {
+            border-left: 4px solid var(--secondary);
+        }
+
+        .question-header {
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        .question-text {
+            margin-bottom: 16px;
+            font-size: 0.98rem;
+        }
+
+        pre.code-block {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 14px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 12px 0 16px;
+            border: 1px solid #334155;
+        }
+
+        .code-keyword { color: #38bdf8; }
+        .code-string { color: #4ade80; }
+        .code-func { color: #facc15; }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-size: 0.95rem;
+        }
+
+        .option-label:hover {
+            background: #eff6ff;
+            border-color: var(--accent);
+        }
+
+        .option-label input[type="radio"] {
+            margin-top: 4px;
+            transform: scale(1.2);
+            accent-color: var(--accent);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0 16px;
+            font-size: 0.9rem;
+        }
+
+        .data-table th, .data-table td {
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        .data-table th {
+            background: #e2e8f0;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Modal de Alerta / Penalidade */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 16px;
+        }
+
+        .modal-content {
+            background: #fff;
+            max-width: 500px;
+            width: 100%;
+            padding: 28px;
+            border-radius: 10px;
+            text-align: center;
+            border-top: 6px solid var(--danger);
+        }
+
+        .modal-content h2 {
+            color: var(--danger);
+            margin-bottom: 12px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-badge.penalized {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        @media (max-width: 600px) {
+            .top-bar {
+                flex-direction: column;
+                gap: 6px;
+                padding: 10px;
+                text-align: center;
+            }
+            .container {
+                margin-top: 110px;
+            }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <!-- Barra Superior -->
+    <div class="top-bar">
+        <div class="info">UNIDESC • Sistemas de Informação (7º Semestre) • Big Data (Apache Spark)</div>
+        <div class="timer-box" id="timerDisplay">50:00</div>
+    </div>
+
+    <div class="container">
+        <!-- TELA 1: IDENTIFICAÇÃO E REGRAS -->
+        <div id="introScreen" class="card">
+            <div class="header-grid">
+                <div class="header-item"><strong>Instituição</strong>UNIDESC - Noturno</div>
+                <div class="header-item"><strong>Curso / Período</strong>Sistemas de Informação • 7º Semestre</div>
+                <div class="header-item"><strong>Disciplina</strong>Tópicos Especiais/Eletivas</div>
+                <div class="header-item"><strong>Docente</strong>Prof. Gabriel Malaquias Rodrigues</div>
+                <div class="header-item"><strong>Data</strong>25/11/2026</div>
+                <div class="header-item"><strong>Duração Máxima</strong>50 Minutos</div>
+            </div>
+
+            <div class="rules-box">
+                <h3>⚠️ REGRAS RÍGIDAS DE APLICAÇÃO ONLINE (LEIA ANTES DE INICIAR)</h3>
+                <ul>
+                    <li>Esta avaliação compõe a <strong>NOTA FINAL</strong> da disciplina e segue as mesmas normas de integridade da aplicação presencial.</li>
+                    <li><strong>Sistema Anti-Cola Ativo:</strong> Durante toda a realização da prova, <strong>é estritamente proibido trocar de aba, minimizar o navegador, abrir outros aplicativos ou clicar fora da janela da avaliação</strong>.</li>
+                    <li><strong>Penalidade Automática:</strong> Caso o sistema detecte saída da aba/janela antes do envio final, a tentativa será considerada fraude, <strong>aplicando penalidade imediata (nota 0,0 / bloqueio)</strong> e notificando o docente.</li>
+                    <li>Você possui <strong>50 minutos</strong> para concluir as 9 questões. Caso termine antes, clique em <em>"Finalizar e Enviar Prova"</em> para ser liberado.</li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label for="studentName">Nome Completo do(a) Acadêmico(a): *</label>
+                <input type="text" id="studentName" placeholder="Digite seu nome completo conforme chamada" required>
+            </div>
+
+            <div class="form-group">
+                <label for="studentEmail">Seu E-mail Institucional ou Pessoal (para comprovante): *</label>
+                <input type="email" id="studentEmail" placeholder="aluno@exemplo.com" required>
+            </div>
+
+            <button type="button" class="btn" onclick="startExam()">Concordar com as Regras e Iniciar Avaliação</button>
+        </div>
+
+        <!-- TELA 2: FORMULÁRIO DA PROVA -->
+        <form id="examForm" class="hidden" action="https://formsubmit.co/gabriel.rodrigues@unidesc.edu.br" method="POST">
+            <!-- Configurações ocultas do FormSubmit -->
+            <input type="hidden" name="_subject" id="emailSubject" value="VA 2 Big Data - Respostas do Aluno">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="Aluno_Nome" id="hiddenName">
+            <input type="hidden" name="Aluno_Email" id="hiddenEmail">
+            <input type="hidden" name="Status_Integridade" id="hiddenIntegrity" value="REGULAR (Sem troca de abas)">
+            <input type="hidden" name="Violacoes_Detectadas" id="hiddenViolations" value="0">
+            <input type="hidden" name="Log_Ocorrencias" id="hiddenLog" value="Nenhuma ocorrência.">
+            <input type="hidden" name="Tempo_Utilizado" id="hiddenTimeSpent">
+            <input type="hidden" name="Acertos_Preliminares" id="hiddenScore">
+            <input type="hidden" name="Nota_Calculada" id="hiddenGrade">
+
+            <!-- QUESTÃO 01 -->
+            <div class="card question-card">
+                <div class="question-header">QUESTÃO 01</div>
+                <div class="question-text">
+                    Na ingestão de grandes volumes de dados em clusters distribuídos, por que o padrão corporativo <strong>NDJSON (JSON Lines)</strong> é preferido em relação ao JSON tradicional?<br><br>
+                    Assinale a alternativa que indica a principal característica arquitetural do Spark responsável pelo ganho expressivo de velocidade no processamento:
+                </div>
+                <div class="options">
+                    <label class="option-label"><input type="radio" name="Q01" value="A" required> <span><strong>A)</strong> Porque o JSON tradicional não suporta atributos numéricos ou textuais organizados em listas.</span></label>
+                    <label class="option-label"><input type="radio" name="Q01" value="B"> <span><strong>B)</strong> Porque no NDJSON cada linha é independente e paralelizável, enquanto o JSON tradicional bloqueia a leitura paralela no cluster.</span></label>
+                    <label class="option-label"><input type="radio" name="Q01" value="C"> <span><strong>C)</strong> Porque o NDJSON elimina a necessidade de definir tipos de dados ou utilizar esquemas durante a leitura no Spark.</span></label>
+                    <label class="option-label"><input type="radio" name="Q01" value="D"> <span><strong>D)</strong> Porque o JSON tradicional só pode ser processado em memória RAM utilizando laços for nativos em Python.</span></label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 02 -->
+            <div class="card question-card">
+                <div class="question-header">QUESTÃO 02</div>
+                <div class="question-text">
+                    Analise o trecho de código responsável por inicializar o ambiente de execução no PySpark:
+                    <pre class="code-block">spark = SparkSession.builder \
+    .appName(<span class="code-string">"Pipeline_Ingestao_JSON"</span>) \
+    .master(<span class="code-string">"local[*]"</span>) \
+    .getOrCreate()</pre>
+                    Sobre os métodos encadeados nessa configuração, assinale a alternativa correta:
+                </div>
+                <div class="options">
+                    <label class="option-label"><input type="radio" name="Q02" value="A" required> <span><strong>A)</strong> <code>.master("local[*]")</code> restringe a execução a apenas um núcleo da CPU e deve ser mantido obrigatoriamente em ambientes de nuvem.</span></label>
+                    <label class="option-label"><input type="radio" name="Q02" value="B"> <span><strong>B)</strong> <code>.appName(...)</code> define o nome do arquivo de saída gravado no disco após o processamento distribuído no cluster.</span></label>
+                    <label class="option-label"><input type="radio" name="Q02" value="C"> <span><strong>C)</strong> <code>.getOrCreate()</code> reaproveita uma sessão Spark já ativa ou cria uma nova, enquanto <code>.master("local[*]")</code> utiliza todos os núcleos locais e deve ser omitido na nuvem.</span></label>
+                    <label class="option-label"><input type="radio" name="Q02" value="D"> <span><strong>D)</strong> <code>.appName(...)</code> ativa o otimizador Catalyst na porta 8080, dispensando o uso da Spark UI.</span></label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 03 -->
+            <div class="card question-card">
+                <div class="question-header">QUESTÃO 03</div>
+                <div class="question-text">
+                    Em pipelines de Engenharia de Dados em produção, recomenda-se evitar a inferência automática de esquema (<code>inferSchema</code>) e adotar um Schema Explícito com <code>StructType</code> e <code>ArrayType</code>, aliado ao conceito de <em>Lazy Evaluation</em>.<br><br>
+                    Considerando o funcionamento interno do Spark, qual é a justificativa técnica correta para essa arquitetura?
+                </div>
+                <div class="options">
+                    <label class="option-label"><input type="radio" name="Q03" value="A" required> <span><strong>A)</strong> O <code>inferSchema</code> faz com que o Spark leia o arquivo inteiro duas vezes (2× I/O — uma para adivinhar os tipos e outra para processar); já com o schema explícito, <code>spark.read</code> apenas registra uma transformação preguiçosa (DAG) sem carregar os dados na RAM imediatamente.</span></label>
+                    <label class="option-label"><input type="radio" name="Q03" value="B"> <span><strong>B)</strong> O <code>StructType</code> representa listas homogêneas de tamanho variável, enquanto o <code>ArrayType</code> define objetos aninhados com chaves fixas que carregam os dados instantaneamente na RAM durante o <code>spark.read</code>.</span></label>
+                    <label class="option-label"><input type="radio" name="Q03" value="C"> <span><strong>C)</strong> O <code>inferSchema</code> compila o código diretamente em bytecode JVM nativo, porém falha quando o arquivo possui estruturas aninhadas como listas de itens.</span></label>
+                    <label class="option-label"><input type="radio" name="Q03" value="D"> <span><strong>D)</strong> A <em>Lazy Evaluation</em> impede que o Spark construa um DAG (Grafo Acíclico Dirigido), forçando a leitura imediata do disco antes mesmo da definição do <code>StructField</code>.</span></label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 04 -->
+            <div class="card question-card">
+                <div class="question-header">QUESTÃO 04</div>
+                <div class="question-text">
+                    Qual é a principal diferença estrutural entre utilizar uma agregação com <code>GROUP BY</code> e utilizar uma <code>Window Function</code> no PySpark?
+                </div>
+                <div class="options">
+                    <label class="option-label"><input type="radio" name="Q04" value="A" required> <span><strong>A)</strong> O <code>GROUP BY</code> mantém todas as linhas individuais intactas, enquanto a <code>Window Function</code> reduz o dataset a uma única linha total.</span></label>
+                    <label class="option-label"><input type="radio" name="Q04" value="B"> <span><strong>B)</strong> O <code>GROUP BY</code> colapsa as linhas por grupo, enquanto a <code>Window Function</code> realiza cálculos contextuais por grupo preservando a granularidade das linhas originais.</span></label>
+                    <label class="option-label"><input type="radio" name="Q04" value="C"> <span><strong>C)</strong> A <code>Window Function</code> opera exclusivamente sobre arquivos em JSON tradicional, enquanto o <code>GROUP BY</code> exige arquivos em formato NDJSON.</span></label>
+                    <label class="option-label"><input type="radio" name="Q04" value="D"> <span><strong>D)</strong> O <code>GROUP BY</code> permite calcular rankings individuais por registro, enquanto a <code>Window Function</code> serve apenas para somar valores globais sem particionamento.</span></label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 05 -->
+            <div class="card question-card">
+                <div class="question-header">QUESTÃO 05</div>
+                <div class="question-text">
+                    Durante a etapa de normalização de dados semiestruturados no PySpark, um engenheiro de dados precisa desdobrar cada elemento de uma coluna de lista chamada <code>"itens"</code> em uma nova linha, acessar o atributo <code>cidade</code> dentro do objeto <code>filial</code> sem parse manual e padronizar o nome da coluna resultante para o modelo final. Quais recursos do PySpark devem ser utilizados, respectivamente?
+                </div>
+                <div class="options">
+                    <label class="option-label"><input type="radio" name="Q05" value="A" required> <span><strong>A)</strong> <code>F.explode("itens")</code>, notação de ponto (<code>filial.cidade</code>) e <code>.alias("...")</code>.</span></label>
+                    <label class="option-label"><input type="radio" name="Q05" value="B"> <span><strong>B)</strong> <code>.groupBy("itens")</code>, função <code>LAG("filial")</code> e <code>.appName("...")</code>.</span></label>
+                    <label class="option-label"><input type="radio" name="Q05" value="C"> <span><strong>C)</strong> <code>ArrayType("itens")</code>, <code>.master("filial.cidade")</code> e <code>.show("...")</code>.</span></label>
+                    <label class="option-label"><input type="radio" name="Q05" value="D"> <span><strong>D)</strong> <code>F.round("itens")</code>, <code>.agg("filial.cidade")</code> e <code>.schema("...")</code>.</span></label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 06 -->
+            <div class="card question-card">
+                <div class="question-header">QUESTÃO 06</div>
+                <div class="question-text">
+                    Observe o fragmento de código utilizado para calcular métricas financeiras em um DataFrame Spark:
+                    <pre class="code-block">df_processado = df_exploded \
+    .withColumn(<span class="code-string">"valor_bruto"</span>, F.round(F.col(<span class="code-string">"quantidade"</span>) * F.col(<span class="code-string">"preco_unitario"</span>), 2)) \
+    .withColumn(<span class="code-string">"valor_liquido"</span>, F.round(F.col(<span class="code-string">"valor_bruto"</span>) * (1.0 - F.col(<span class="code-string">"desconto_pct"</span>)), 2))</pre>
+                    Por que essa abordagem vetorizada apresenta desempenho superior em comparação ao uso de laços <code>for</code> nativos em Python?
+                </div>
+                <div class="options">
+                    <label class="option-label"><input type="radio" name="Q06" value="A" required> <span><strong>A)</strong> Porque o método <code>withColumn</code> converte automaticamente o DataFrame distribuído em uma lista local na memória do driver Python antes de multiplicar as colunas.</span></label>
+                    <label class="option-label"><input type="radio" name="Q06" value="B"> <span><strong>B)</strong> Porque elimina laços <code>for</code> em Python ao executar operações distribuídas por partição, permitindo que os motores Catalyst & Tungsten compilem o plano em bytecode JVM nativo.</span></label>
+                    <label class="option-label"><input type="radio" name="Q06" value="C"> <span><strong>C)</strong> Porque a função <code>F.round</code> dispara imediatamente uma ação de shuffle no cluster, descartando a necessidade de otimização pelo Catalyst.</span></label>
+                    <label class="option-label"><input type="radio" name="Q06" value="D"> <span><strong>D)</strong> Porque cada chamada de <code>withColumn</code> grava um arquivo intermediário em NDJSON no disco, evitando o consumo de memória JVM.</span></label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 07 -->
+            <div class="card question-card">
+                <div class="question-header">QUESTÃO 07</div>
+                <div class="question-text">
+                    Na análise avançada de datasets com PySpark, qual função de janela (<em>Window Function</em>) é aplicada especificamente para realizar análise temporal, como comparar o resultado do mês atual com o do mês anterior?
+                </div>
+                <div class="options">
+                    <label class="option-label"><input type="radio" name="Q07" value="A" required> <span><strong>A)</strong> <code>explode</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q07" value="B"> <span><strong>B)</strong> <code>LAG</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q07" value="C"> <span><strong>C)</strong> <code>StructField</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q07" value="D"> <span><strong>D)</strong> <code>countDistinct</code></span></label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 08 -->
+            <div class="card question-card">
+                <div class="question-header">QUESTÃO 08</div>
+                <div class="question-text">
+                    Em um pipeline PySpark que encadeia <code>.groupBy("canal_venda", "cidade_filial")</code>, <code>.agg(countDistinct, sum, avg)</code>, <code>.sort(desc())</code> e, por fim, <code>.show()</code>, qual é o papel específico da chamada <code>.show()</code>?
+                </div>
+                <div class="options">
+                    <label class="option-label"><input type="radio" name="Q08" value="A" required> <span><strong>A)</strong> Apenas definir as chaves de particionamento no cluster sem iniciar qualquer processamento.</span></label>
+                    <label class="option-label"><input type="radio" name="Q08" value="B"> <span><strong>B)</strong> Ordenar os canais mais rentáveis no topo do DataFrame de forma preguiçosa.</span></label>
+                    <label class="option-label"><input type="radio" name="Q08" value="C"> <span><strong>C)</strong> Atuar como uma ação que compila o DAG, executa o shuffle distribuído e exibe os resultados.</span></label>
+                    <label class="option-label"><input type="radio" name="Q08" value="D"> <span><strong>D)</strong> Inferir automaticamente o esquema das colunas agregadas antes da leitura do arquivo JSON.</span></label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 09 -->
+            <div class="card question-card">
+                <div class="question-header">QUESTÃO 09</div>
+                <div class="question-text">
+                    Considere uma tabela de colaboradores contendo os seguintes registros:
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>Colaborador</th><th>Depto</th><th>Salário</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Ana</td><td>TI</td><td>12.000</td></tr>
+                            <tr><td>Bruno</td><td>TI</td><td>8.000</td></tr>
+                            <tr><td>Carla</td><td>RH</td><td>5.000</td></tr>
+                        </tbody>
+                    </table>
+                    Ao aplicar uma <code>Window Function</code> particionada por departamento para calcular a média salarial do setor e o ranking salarial interno (do maior para o menor salário), qual será o resultado exibido para o registro de <strong>Bruno</strong>?
+                </div>
+                <div class="options">
+                    <label class="option-label"><input type="radio" name="Q09" value="A" required> <span><strong>A)</strong> A linha de Bruno será omitida, restando apenas uma linha consolidada para o departamento de TI com média 10.000.</span></label>
+                    <label class="option-label"><input type="radio" name="Q09" value="B"> <span><strong>B)</strong> Bruno aparecerá com Salário 8.000, Média Depto 10.000 e Rank 2º, mantendo sua linha individual no dataset.</span></label>
+                    <label class="option-label"><input type="radio" name="Q09" value="C"> <span><strong>C)</strong> Bruno aparecerá com Salário 8.000, Média Depto 8.333 (média geral da empresa) e Rank 3º.</span></label>
+                    <label class="option-label"><input type="radio" name="Q09" value="D"> <span><strong>D)</strong> Bruno aparecerá com Salário 10.000, Média Depto 12.000 e Rank 1º, pois a Window Function sobrescreve o salário original pela média do grupo.</span></label>
+                </div>
+            </div>
+
+            <div class="card">
+                <button type="button" class="btn btn-submit" onclick="manualSubmit()">Finalizar e Enviar Avaliação para o Professor</button>
+            </div>
+        </form>
+
+        <!-- TELA 3: RECIBO DE CONCLUSÃO -->
+        <div id="receiptScreen" class="card hidden">
+            <h2 style="color: var(--secondary); margin-bottom: 12px;">Avaliação Encerrada e Enviada!</h2>
+            <p style="margin-bottom: 16px;">Suas respostas foram registradas e encaminhadas ao e-mail institucional do docente (<strong>gabriel.rodrigues@unidesc.edu.br</strong>).</p>
+            
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 20px;">
+                <p><strong>Acadêmico(a):</strong> <span id="recName"></span></p>
+                <p><strong>Tempo Total:</strong> <span id="recTime"></span></p>
+                <p><strong>Status de Integridade:</strong> <span id="recStatus" class="status-badge"></span></p>
+                <p style="margin-top: 8px; font-size: 0.85rem; color: #64748b;" id="recLog"></p>
+            </div>
+
+            <p style="font-size: 0.9rem; color: #475569;">Você já está liberado(a). Caso queira garantir uma cópia de segurança caso o navegador bloqueie o envio automático, clique no botão abaixo para abrir seu cliente de e-mail:</p>
+            <br>
+            <a id="mailtoFallback" href="#" class="btn" style="text-align: center; text-decoration: none;">Enviar Cópia via Aplicativo de E-mail (Backup)</a>
+        </div>
+    </div>
+
+    <!-- MODAL DE PENALIDADE ANTI-COLA -->
+    <div id="penaltyModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2>🚨 VIOLAÇÃO DE INTEGRIDADE DETECTADA</h2>
+            <p style="margin-bottom: 16px;" id="penaltyMessage">
+                Você saiu da aba ou perdeu o foco da janela da avaliação durante a prova. Conforme as regras estabelecidas para a VA 2, essa ação configura tentativa de consulta indevida.
+            </p>
+            <p style="font-weight: bold; color: var(--danger); margin-bottom: 20px;">
+                A avaliação foi encerrada automaticamente com penalidade aplicada (Nota 0,0) e o relatório foi enviado ao Prof. Gabriel Malaquias Rodrigues.
+            </p>
+            <button type="button" class="btn" style="background: var(--danger);" onclick="closePenaltyModal()">Visualizar Comprovante de Encerramento</button>
+        </div>
+    </div>
+
+    <script>
+        // ================= CONFIGURAÇÕES DA AVALIAÇÃO =================
+        const DURACAO_MINUTOS = 50;
+        const MAX_VIOLACOES = 1; // 1 = Penaliza e encerra imediatamente na primeira saída de aba
+        const DOCENTE_EMAIL = "gabriel.rodrigues@unidesc.edu.br";
+
+        // Gabarito oficial extraído do documento para pré-correção no e-mail do professor
+        const GABARITO = {
+            Q01: "B",
+            Q02: "C",
+            Q03: "A",
+            Q04: "B",
+            Q05: "A",
+            Q06: "B",
+            Q07: "B",
+            Q08: "C",
+            Q09: "B"
+        };
+
+        // ================= VARIÁVEIS DE CONTROLE =================
+        let totalSeconds = DURACAO_MINUTOS * 60;
+        let timerInterval = null;
+        let examActive = false;
+        let examSubmitted = false;
+        let violationCount = 0;
+        let violationLogs = [];
+        let startTime = null;
+
+        // ================= INÍCIO DA PROVA =================
+        function startExam() {
+            const name = document.getElementById("studentName").value.trim();
+            const email = document.getElementById("studentEmail").value.trim();
+
+            if (!name || !email) {
+                alert("Por favor, preencha seu Nome Completo e E-mail antes de iniciar.");
+                return;
+            }
+
+            // Preenche campos ocultos
+            document.getElementById("hiddenName").value = name;
+            document.getElementById("hiddenEmail").value = email;
+            document.getElementById("emailSubject").value = `VA 2 Big Data - ${name}`;
+
+            // Alterna telas
+            document.getElementById("introScreen").classList.add("hidden");
+            document.getElementById("examForm").classList.remove("hidden");
+
+            examActive = true;
+            startTime = new Date();
+            startTimer();
+            activateAntiCheat();
+        }
+
+        // ================= TEMPORIZADOR (50 MINUTOS) =================
+        function startTimer() {
+            const display = document.getElementById("timerDisplay");
+            timerInterval = setInterval(() => {
+                totalSeconds--;
+
+                const mins = Math.floor(totalSeconds / 60);
+                const secs = totalSeconds % 60;
+                display.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+                if (totalSeconds <= 600 && totalSeconds > 180) {
+                    display.classList.add("warning");
+                } else if (totalSeconds <= 180) {
+                    display.classList.remove("warning");
+                    display.classList.add("danger");
+                }
+
+                if (totalSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    finalizeExam("TEMPO ESGOTADO (50 minutos atingidos)");
+                }
+            }, 1000);
+        }
+
+        // ================= SISTEMA ANTI-COLA (ABA / FOCO) =================
+        function activateAntiCheat() {
+            // Detecta mudança de aba ou minimização
+            document.addEventListener("visibilitychange", () => {
+                if (document.hidden && examActive && !examSubmitted) {
+                    registerViolation("Troca de aba ou minimização do navegador (visibilitychange)");
+                }
+            });
+
+            // Detecta perda de foco da janela (ex: Alt+Tab, clicar em outro programa/monitor)
+            window.addEventListener("blur", () => {
+                if (examActive && !examSubmitted) {
+                    registerViolation("Perda de foco da janela da prova (window blur)");
+                }
+            });
+
+            // Bloqueia atalhos de teclado comuns de cola/inspeção
+            document.addEventListener("keydown", (e) => {
+                if (!examActive) return;
+                if (
+                    (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'v' || e.key === 'V' || e.key === 'u' || e.key === 'U' || e.key === 'p' || e.key === 'P')) ||
+                    e.key === 'F12' ||
+                    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j'))
+                ) {
+                    e.preventDefault();
+                }
+            });
+
+            // Alerta caso tente fechar ou recarregar a página
+            window.onbeforeunload = function() {
+                if (examActive && !examSubmitted) {
+                    return "A prova está em andamento. Sair agora invalidará sua avaliação.";
+                }
+            };
+        }
+
+        function registerViolation(reason) {
+            if (!examActive || examSubmitted) return;
+
+            violationCount++;
+            const timestamp = new Date().toLocaleTimeString('pt-BR');
+            violationLogs.push(`[${timestamp}] ${reason}`);
+
+            if (violationCount >= MAX_VIOLACOES) {
+                document.getElementById("penaltyModal").classList.remove("hidden");
+                finalizeExam("PENALIZADO - Saída da aba/janela durante a prova (Nota 0,0)");
+            }
+        }
+
+        function closePenaltyModal() {
+            document.getElementById("penaltyModal").classList.add("hidden");
+        }
+
+        // ================= SUBMISSÃO E CÁLCULO =================
+        function manualSubmit() {
+            // Verifica se todas as questões foram respondidas
+            for (let i = 1; i <= 9; i++) {
+                const qName = `Q0${i}`;
+                const checked = document.querySelector(`input[name="${qName}"]:checked`);
+                if (!checked) {
+                    alert(`Você ainda não respondeu a QUESTÃO 0${i}. Responda todas as questões antes de finalizar.`);
+                    return;
+                }
+            }
+
+            if (confirm("Tem certeza que deseja finalizar e enviar suas respostas? Não será possível alterar após o envio.")) {
+                finalizeExam("REGULAR (Concluída dentro das normas)");
+            }
+        }
+
+        function finalizeExam(statusLabel) {
+            if (examSubmitted) return;
+            examSubmitted = true;
+            examActive = false;
+            clearInterval(timerInterval);
+            window.onbeforeunload = null;
+
+            const isPenalized = violationCount >= MAX_VIOLACOES;
+            const endTime = new Date();
+            const diffSecs = Math.floor((endTime - startTime) / 1000);
+            const minsSpent = Math.floor(diffSecs / 60);
+            const secsSpent = diffSecs % 60;
+            const timeFormatted = `${minsSpent} min e ${secsSpent} seg`;
+
+            // Coleta respostas e calcula pontuação
+            let acertos = 0;
+            let resumoRespostas = "";
+
+            for (let i = 1; i <= 9; i++) {
+                const qName = `Q0${i}`;
+                const checked = document.querySelector(`input[name="${qName}"]:checked`);
+                const resp = checked ? checked.value : "EM BRANCO";
+                const correta = GABARITO[qName];
+                const acertou = resp === correta;
+                if (acertou) acertos++;
+
+                resumoRespostas += `${qName}: Marcada [${resp}] | Gabarito [${correta}] -> ${acertou ? "OK" : "ERRO"}\n`;
+            }
+
+            // Se houve violação de aba, zera a nota final
+            const notaFinal = isPenalized ? "0.0 (ANULADA POR INFRAÇÃO)" : ((acertos / 9) * 10).toFixed(2);
+
+            // Atualiza inputs ocultos do formulário
+            document.getElementById("hiddenIntegrity").value = statusLabel;
+            document.getElementById("hiddenViolations").value = violationCount;
+            document.getElementById("hiddenLog").value = violationLogs.length > 0 ? violationLogs.join(" | ") : "Nenhuma infração.";
+            document.getElementById("hiddenTimeSpent").value = timeFormatted;
+            document.getElementById("hiddenScore").value = `${acertos} de 9 questões`;
+            document.getElementById("hiddenGrade").value = notaFinal;
+
+            // Preenche recibo visual
+            const name = document.getElementById("hiddenName").value;
+            document.getElementById("recName").textContent = name;
+            document.getElementById("recTime").textContent = timeFormatted;
+            
+            const statusBadge = document.getElementById("recStatus");
+            statusBadge.textContent = statusLabel;
+            if (isPenalized) {
+                statusBadge.classList.add("penalized");
+                document.getElementById("recLog").textContent = `Registro: ${violationLogs.join(" | ")}`;
+            }
+
+            // Configura link mailto de fallback
+            const mailBody = encodeURIComponent(
+                `RELATÓRIO DE AVALIAÇÃO - VA 2 BIG DATA (APACHE SPARK)\n` +
+                `=====================================================\n` +
+                `Aluno: ${name}\n` +
+                `E-mail: ${document.getElementById("hiddenEmail").value}\n` +
+                `Tempo utilizado: ${timeFormatted}\n` +
+                `Status de Integridade: ${statusLabel}\n` +
+                `Ocorrências de troca de aba: ${violationCount}\n` +
+                `Log: ${violationLogs.join(" | ") || "Limpo"}\n` +
+                `Acertos: ${acertos}/9\n` +
+                `NOTA FINAL SUGERIDA: ${notaFinal}\n\n` +
+                `DETALHAMENTO DAS RESPOSTAS:\n${resumoRespostas}`
+            );
+            document.getElementById("mailtoFallback").href = `mailto:${DOCENTE_EMAIL}?subject=${encodeURIComponent("VA 2 Big Data - " + name)}&body=${mailBody}`;
+
+            // Envio assíncrono via Fetch para o FormSubmit (evita recarregar a página e perder o recibo)
+            const form = document.getElementById("examForm");
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).catch(err => {
+                console.warn("Envio automático em segundo plano falhou; aluno pode usar o botão mailto.", err);
+            });
+
+            // Exibe tela de conclusão
+            form.classList.add("hidden");
+            document.getElementById("receiptScreen").classList.remove("hidden");
+        }
+    </script>
 </body>
 </html>
