@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VA 2 - Big Data (Apache Spark) | UNIDESC</title>
+    <title>Avaliação 4º Bimestre - Desenvolvimento de Sistemas</title>
     <style>
         :root {
             --primary: #0f172a;
@@ -136,6 +136,19 @@
             margin-bottom: 6px;
         }
 
+        /* Divisor de Unidade Curricular */
+        .section-divider {
+            background: var(--secondary);
+            color: #fff;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin: 32px 0 20px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
         /* Formulário de Identificação */
         .form-group {
             margin-bottom: 16px;
@@ -214,6 +227,7 @@
 
         .code-keyword { color: #38bdf8; }
         .code-string { color: #4ade80; }
+        .code-number { color: #f472b6; }
         .code-func { color: #facc15; }
 
         .options {
@@ -243,23 +257,6 @@
             margin-top: 4px;
             transform: scale(1.2);
             accent-color: var(--accent);
-        }
-
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 12px 0 16px;
-            font-size: 0.9rem;
-        }
-
-        .data-table th, .data-table td {
-            border: 1px solid var(--border);
-            padding: 8px 12px;
-            text-align: left;
-        }
-
-        .data-table th {
-            background: #e2e8f0;
         }
 
         .hidden {
@@ -325,7 +322,7 @@
 
     <!-- Barra Superior -->
     <div class="top-bar">
-        <div class="info">UNIDESC • Sistemas de Informação (7º Semestre) • Big Data (Apache Spark)</div>
+        <div class="info">Curso Técnico em Desenvolvimento de Sistemas • 4º Bimestre • Lógica & Banco de Dados</div>
         <div class="timer-box" id="timerDisplay">50:00</div>
     </div>
 
@@ -333,31 +330,31 @@
         <!-- TELA 1: IDENTIFICAÇÃO E REGRAS -->
         <div id="introScreen" class="card">
             <div class="header-grid">
-                <div class="header-item"><strong>Instituição</strong>UNIDESC - Noturno</div>
-                <div class="header-item"><strong>Curso / Período</strong>Sistemas de Informação • 7º Semestre</div>
-                <div class="header-item"><strong>Disciplina</strong>Tópicos Especiais/Eletivas</div>
+                <div class="header-item"><strong>Curso</strong>Técnico em Desenvolvimento de Sistemas</div>
+                <div class="header-item"><strong>Período</strong>4º Bimestre</div>
+                <div class="header-item"><strong>Unidades Curriculares</strong>Lógica de Programação e Banco de Dados</div>
                 <div class="header-item"><strong>Docente</strong>Prof. Gabriel Malaquias Rodrigues</div>
-                <div class="header-item"><strong>Data</strong>25/11/2026</div>
+                <div class="header-item"><strong>Total de Questões</strong>20 Questões Objetivas</div>
                 <div class="header-item"><strong>Duração Máxima</strong>50 Minutos</div>
             </div>
 
             <div class="rules-box">
                 <h3>⚠️ REGRAS RÍGIDAS DE APLICAÇÃO ONLINE (LEIA ANTES DE INICIAR)</h3>
                 <ul>
-                    <li>Esta avaliação compõe a <strong>NOTA FINAL</strong> da disciplina e segue as mesmas normas de integridade da aplicação presencial.</li>
+                    <li>Esta avaliação substitui a aplicação presencial e compõe a nota do <strong>4º Bimestre</strong>.</li>
                     <li><strong>Sistema Anti-Cola Ativo:</strong> Durante toda a realização da prova, <strong>é estritamente proibido trocar de aba, minimizar o navegador, abrir outros aplicativos ou clicar fora da janela da avaliação</strong>.</li>
                     <li><strong>Penalidade Automática:</strong> Caso o sistema detecte saída da aba/janela antes do envio final, a tentativa será considerada fraude, <strong>aplicando penalidade imediata (nota 0,0 / bloqueio)</strong> e notificando o docente.</li>
-                    <li>Você possui <strong>50 minutos</strong> para concluir as 9 questões. Caso termine antes, clique em <em>"Finalizar e Enviar Prova"</em> para ser liberado.</li>
+                    <li>Você possui <strong>50 minutos</strong> para concluir as 20 questões (10 de Lógica de Programação e 10 de Banco de Dados). Caso termine antes, clique em <em>"Finalizar e Enviar Avaliação"</em>.</li>
                 </ul>
             </div>
 
             <div class="form-group">
-                <label for="studentName">Nome Completo do(a) Acadêmico(a): *</label>
+                <label for="studentName">Nome Completo do(a) Aluno(a): *</label>
                 <input type="text" id="studentName" placeholder="Digite seu nome completo conforme chamada" required>
             </div>
 
             <div class="form-group">
-                <label for="studentEmail">Seu E-mail Institucional ou Pessoal (para comprovante): *</label>
+                <label for="studentEmail">Seu E-mail (Institucional ou Pessoal): *</label>
                 <input type="email" id="studentEmail" placeholder="aluno@exemplo.com" required>
             </div>
 
@@ -365,9 +362,9 @@
         </div>
 
         <!-- TELA 2: FORMULÁRIO DA PROVA -->
-        <form id="examForm" class="hidden" action="https://formsubmit.co/gabriel.rodrigues@unidesc.edu.br" method="POST">
+        <form id="examForm" class="hidden" action="https://formsubmit.co/gabrielmalaquias@fieg.com.br" method="POST">
             <!-- Configurações ocultas do FormSubmit -->
-            <input type="hidden" name="_subject" id="emailSubject" value="VA 2 Big Data - Respostas do Aluno">
+            <input type="hidden" name="_subject" id="emailSubject" value="Avaliação 4º Bimestre (Lógica & BD) - Respostas">
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_template" value="table">
             <input type="hidden" name="Aluno_Nome" id="hiddenName">
@@ -376,21 +373,28 @@
             <input type="hidden" name="Violacoes_Detectadas" id="hiddenViolations" value="0">
             <input type="hidden" name="Log_Ocorrencias" id="hiddenLog" value="Nenhuma ocorrência.">
             <input type="hidden" name="Tempo_Utilizado" id="hiddenTimeSpent">
-            <input type="hidden" name="Acertos_Preliminares" id="hiddenScore">
+            <input type="hidden" name="Acertos_Logica" id="hiddenScoreLogic">
+            <input type="hidden" name="Acertos_Banco_Dados" id="hiddenScoreDB">
+            <input type="hidden" name="Acertos_Totais" id="hiddenScore">
             <input type="hidden" name="Nota_Calculada" id="hiddenGrade">
+            <input type="hidden" name="Detalhamento_Respostas" id="hiddenAnswersDetail">
+
+            <!-- ================= UNIDADE CURRICULAR: LÓGICA DE PROGRAMAÇÃO ================= -->
+            <div class="section-divider">UNIDADE CURRICULAR – LÓGICA DE PROGRAMAÇÃO (Questões 01 a 10)</div>
 
             <!-- QUESTÃO 01 -->
             <div class="card question-card">
                 <div class="question-header">QUESTÃO 01</div>
                 <div class="question-text">
-                    Na ingestão de grandes volumes de dados em clusters distribuídos, por que o padrão corporativo <strong>NDJSON (JSON Lines)</strong> é preferido em relação ao JSON tradicional?<br><br>
-                    Assinale a alternativa que indica a principal característica arquitetural do Spark responsável pelo ganho expressivo de velocidade no processamento:
+                    Um programador está desenvolvendo um módulo de automação para uma estufa agrícola em linguagem C. Para que o programa possa ser compilado e executado pelo sistema operacional, é obrigatório definir o ponto de entrada principal do código.<br><br>
+                    Qual é a assinatura correta dessa função principal em C?
                 </div>
                 <div class="options">
-                    <label class="option-label"><input type="radio" name="Q01" value="A" required> <span><strong>A)</strong> Porque o JSON tradicional não suporta atributos numéricos ou textuais organizados em listas.</span></label>
-                    <label class="option-label"><input type="radio" name="Q01" value="B"> <span><strong>B)</strong> Porque no NDJSON cada linha é independente e paralelizável, enquanto o JSON tradicional bloqueia a leitura paralela no cluster.</span></label>
-                    <label class="option-label"><input type="radio" name="Q01" value="C"> <span><strong>C)</strong> Porque o NDJSON elimina a necessidade de definir tipos de dados ou utilizar esquemas durante a leitura no Spark.</span></label>
-                    <label class="option-label"><input type="radio" name="Q01" value="D"> <span><strong>D)</strong> Porque o JSON tradicional só pode ser processado em memória RAM utilizando laços for nativos em Python.</span></label>
+                    <label class="option-label"><input type="radio" name="Q01" value="A" required> <span><strong>A)</strong> <code>void iniciarPrograma() { ... }</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q01" value="B"> <span><strong>B)</strong> <code>public static void main(String[] args) { ... }</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q01" value="C"> <span><strong>C)</strong> <code>int main() { ... return 0; }</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q01" value="D"> <span><strong>D)</strong> <code>program EstufaAgricola() { ... }</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q01" value="E"> <span><strong>E)</strong> <code>execute main() { ... }</code></span></label>
                 </div>
             </div>
 
@@ -398,18 +402,15 @@
             <div class="card question-card">
                 <div class="question-header">QUESTÃO 02</div>
                 <div class="question-text">
-                    Analise o trecho de código responsável por inicializar o ambiente de execução no PySpark:
-                    <pre class="code-block">spark = SparkSession.builder \
-    .appName(<span class="code-string">"Pipeline_Ingestao_JSON"</span>) \
-    .master(<span class="code-string">"local[*]"</span>) \
-    .getOrCreate()</pre>
-                    Sobre os métodos encadeados nessa configuração, assinale a alternativa correta:
+                    Em um sistema de controle de acervo de uma biblioteca em C, o operador precisa digitar a quantidade de livros a serem emprestados (um valor inteiro) via teclado.<br><br>
+                    Qual instrução realiza a leitura correta e salva o valor na variável <code>quantidade</code>?
                 </div>
                 <div class="options">
-                    <label class="option-label"><input type="radio" name="Q02" value="A" required> <span><strong>A)</strong> <code>.master("local[*]")</code> restringe a execução a apenas um núcleo da CPU e deve ser mantido obrigatoriamente em ambientes de nuvem.</span></label>
-                    <label class="option-label"><input type="radio" name="Q02" value="B"> <span><strong>B)</strong> <code>.appName(...)</code> define o nome do arquivo de saída gravado no disco após o processamento distribuído no cluster.</span></label>
-                    <label class="option-label"><input type="radio" name="Q02" value="C"> <span><strong>C)</strong> <code>.getOrCreate()</code> reaproveita uma sessão Spark já ativa ou cria uma nova, enquanto <code>.master("local[*]")</code> utiliza todos os núcleos locais e deve ser omitido na nuvem.</span></label>
-                    <label class="option-label"><input type="radio" name="Q02" value="D"> <span><strong>D)</strong> <code>.appName(...)</code> ativa o otimizador Catalyst na porta 8080, dispensando o uso da Spark UI.</span></label>
+                    <label class="option-label"><input type="radio" name="Q02" value="A" required> <span><strong>A)</strong> <code>scanf("%d", &amp;quantidade);</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q02" value="B"> <span><strong>B)</strong> <code>printf("%d", quantidade);</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q02" value="C"> <span><strong>C)</strong> <code>scanf("%f", quantidade);</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q02" value="D"> <span><strong>D)</strong> <code>cin &gt;&gt; quantidade;</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q02" value="E"> <span><strong>E)</strong> <code>read_integer(&amp;quantidade);</code></span></label>
                 </div>
             </div>
 
@@ -417,14 +418,16 @@
             <div class="card question-card">
                 <div class="question-header">QUESTÃO 03</div>
                 <div class="question-text">
-                    Em pipelines de Engenharia de Dados em produção, recomenda-se evitar a inferência automática de esquema (<code>inferSchema</code>) e adotar um Schema Explícito com <code>StructType</code> e <code>ArrayType</code>, aliado ao conceito de <em>Lazy Evaluation</em>.<br><br>
-                    Considerando o funcionamento interno do Spark, qual é a justificativa técnica correta para essa arquitetura?
+                    Em um algoritmo para gerenciar a distribuição de estudantes em laboratórios de informática, aplicou-se a seguinte operação aritmética em C:
+                    <pre class="code-block"><span class="code-keyword">int</span> resultado = <span class="code-number">38</span> % <span class="code-number">6</span>;</pre>
+                    Qual será o valor final armazenado na variável <code>resultado</code>?
                 </div>
                 <div class="options">
-                    <label class="option-label"><input type="radio" name="Q03" value="A" required> <span><strong>A)</strong> O <code>inferSchema</code> faz com que o Spark leia o arquivo inteiro duas vezes (2× I/O — uma para adivinhar os tipos e outra para processar); já com o schema explícito, <code>spark.read</code> apenas registra uma transformação preguiçosa (DAG) sem carregar os dados na RAM imediatamente.</span></label>
-                    <label class="option-label"><input type="radio" name="Q03" value="B"> <span><strong>B)</strong> O <code>StructType</code> representa listas homogêneas de tamanho variável, enquanto o <code>ArrayType</code> define objetos aninhados com chaves fixas que carregam os dados instantaneamente na RAM durante o <code>spark.read</code>.</span></label>
-                    <label class="option-label"><input type="radio" name="Q03" value="C"> <span><strong>C)</strong> O <code>inferSchema</code> compila o código diretamente em bytecode JVM nativo, porém falha quando o arquivo possui estruturas aninhadas como listas de itens.</span></label>
-                    <label class="option-label"><input type="radio" name="Q03" value="D"> <span><strong>D)</strong> A <em>Lazy Evaluation</em> impede que o Spark construa um DAG (Grafo Acíclico Dirigido), forçando a leitura imediata do disco antes mesmo da definição do <code>StructField</code>.</span></label>
+                    <label class="option-label"><input type="radio" name="Q03" value="A" required> <span><strong>A)</strong> 6</span></label>
+                    <label class="option-label"><input type="radio" name="Q03" value="B"> <span><strong>B)</strong> 0</span></label>
+                    <label class="option-label"><input type="radio" name="Q03" value="C"> <span><strong>C)</strong> 3</span></label>
+                    <label class="option-label"><input type="radio" name="Q03" value="D"> <span><strong>D)</strong> 6.33</span></label>
+                    <label class="option-label"><input type="radio" name="Q03" value="E"> <span><strong>E)</strong> 2</span></label>
                 </div>
             </div>
 
@@ -432,13 +435,21 @@
             <div class="card question-card">
                 <div class="question-header">QUESTÃO 04</div>
                 <div class="question-text">
-                    Qual é a principal diferença estrutural entre utilizar uma agregação com <code>GROUP BY</code> e utilizar uma <code>Window Function</code> no PySpark?
+                    Um sistema de monitoramento para uma câmara fria utiliza um código em C para validar a temperatura atual de armazenamento. Considere o trecho abaixo:
+                    <pre class="code-block"><span class="code-keyword">int</span> temp = <span class="code-number">-2</span>;
+<span class="code-keyword">if</span> (temp &gt;= <span class="code-number">0</span>) {
+    <span class="code-func">printf</span>(<span class="code-string">"Temperatura Ok"</span>);
+} <span class="code-keyword">else</span> {
+    <span class="code-func">printf</span>(<span class="code-string">"Alerta de Congelamento"</span>);
+}</pre>
+                    Qual mensagem será exibida na tela?
                 </div>
                 <div class="options">
-                    <label class="option-label"><input type="radio" name="Q04" value="A" required> <span><strong>A)</strong> O <code>GROUP BY</code> mantém todas as linhas individuais intactas, enquanto a <code>Window Function</code> reduz o dataset a uma única linha total.</span></label>
-                    <label class="option-label"><input type="radio" name="Q04" value="B"> <span><strong>B)</strong> O <code>GROUP BY</code> colapsa as linhas por grupo, enquanto a <code>Window Function</code> realiza cálculos contextuais por grupo preservando a granularidade das linhas originais.</span></label>
-                    <label class="option-label"><input type="radio" name="Q04" value="C"> <span><strong>C)</strong> A <code>Window Function</code> opera exclusivamente sobre arquivos em JSON tradicional, enquanto o <code>GROUP BY</code> exige arquivos em formato NDJSON.</span></label>
-                    <label class="option-label"><input type="radio" name="Q04" value="D"> <span><strong>D)</strong> O <code>GROUP BY</code> permite calcular rankings individuais por registro, enquanto a <code>Window Function</code> serve apenas para somar valores globais sem particionamento.</span></label>
+                    <label class="option-label"><input type="radio" name="Q04" value="A" required> <span><strong>A)</strong> Temperatura Ok</span></label>
+                    <label class="option-label"><input type="radio" name="Q04" value="B"> <span><strong>B)</strong> Alerta de Congelamento</span></label>
+                    <label class="option-label"><input type="radio" name="Q04" value="C"> <span><strong>C)</strong> Temperatura Ok Alerta de Congelamento</span></label>
+                    <label class="option-label"><input type="radio" name="Q04" value="D"> <span><strong>D)</strong> Erro de execução</span></label>
+                    <label class="option-label"><input type="radio" name="Q04" value="E"> <span><strong>E)</strong> Nenhuma mensagem</span></label>
                 </div>
             </div>
 
@@ -446,13 +457,23 @@
             <div class="card question-card">
                 <div class="question-header">QUESTÃO 05</div>
                 <div class="question-text">
-                    Durante a etapa de normalização de dados semiestruturados no PySpark, um engenheiro de dados precisa desdobrar cada elemento de uma coluna de lista chamada <code>"itens"</code> em uma nova linha, acessar o atributo <code>cidade</code> dentro do objeto <code>filial</code> sem parse manual e padronizar o nome da coluna resultante para o modelo final. Quais recursos do PySpark devem ser utilizados, respectivamente?
+                    Um sistema de avaliação acadêmica de um curso de robótica classifica o desempenho dos alunos com base na nota final obtida. Analise o trecho a seguir:
+                    <pre class="code-block"><span class="code-keyword">int</span> nota = <span class="code-number">85</span>;
+<span class="code-keyword">if</span> (nota &gt;= <span class="code-number">90</span>) {
+    <span class="code-func">printf</span>(<span class="code-string">"CONCEITO A"</span>);
+} <span class="code-keyword">else if</span> (nota &gt;= <span class="code-number">70</span>) {
+    <span class="code-func">printf</span>(<span class="code-string">"CONCEITO B"</span>);
+} <span class="code-keyword">else</span> {
+    <span class="code-func">printf</span>(<span class="code-string">"CONCEITO C"</span>);
+}</pre>
+                    Qual conceito será atribuído e impresso na tela?
                 </div>
                 <div class="options">
-                    <label class="option-label"><input type="radio" name="Q05" value="A" required> <span><strong>A)</strong> <code>F.explode("itens")</code>, notação de ponto (<code>filial.cidade</code>) e <code>.alias("...")</code>.</span></label>
-                    <label class="option-label"><input type="radio" name="Q05" value="B"> <span><strong>B)</strong> <code>.groupBy("itens")</code>, função <code>LAG("filial")</code> e <code>.appName("...")</code>.</span></label>
-                    <label class="option-label"><input type="radio" name="Q05" value="C"> <span><strong>C)</strong> <code>ArrayType("itens")</code>, <code>.master("filial.cidade")</code> e <code>.show("...")</code>.</span></label>
-                    <label class="option-label"><input type="radio" name="Q05" value="D"> <span><strong>D)</strong> <code>F.round("itens")</code>, <code>.agg("filial.cidade")</code> e <code>.schema("...")</code>.</span></label>
+                    <label class="option-label"><input type="radio" name="Q05" value="A" required> <span><strong>A)</strong> CONCEITO A</span></label>
+                    <label class="option-label"><input type="radio" name="Q05" value="B"> <span><strong>B)</strong> CONCEITO C</span></label>
+                    <label class="option-label"><input type="radio" name="Q05" value="C"> <span><strong>C)</strong> CONCEITO A CONCEITO B</span></label>
+                    <label class="option-label"><input type="radio" name="Q05" value="D"> <span><strong>D)</strong> CONCEITO B</span></label>
+                    <label class="option-label"><input type="radio" name="Q05" value="E"> <span><strong>E)</strong> Nenhuma das alternativas</span></label>
                 </div>
             </div>
 
@@ -460,17 +481,15 @@
             <div class="card question-card">
                 <div class="question-header">QUESTÃO 06</div>
                 <div class="question-text">
-                    Observe o fragmento de código utilizado para calcular métricas financeiras em um DataFrame Spark:
-                    <pre class="code-block">df_processado = df_exploded \
-    .withColumn(<span class="code-string">"valor_bruto"</span>, F.round(F.col(<span class="code-string">"quantidade"</span>) * F.col(<span class="code-string">"preco_unitario"</span>), 2)) \
-    .withColumn(<span class="code-string">"valor_liquido"</span>, F.round(F.col(<span class="code-string">"valor_bruto"</span>) * (1.0 - F.col(<span class="code-string">"desconto_pct"</span>)), 2))</pre>
-                    Por que essa abordagem vetorizada apresenta desempenho superior em comparação ao uso de laços <code>for</code> nativos em Python?
+                    O sistema de controle de acesso de uma academia só libera a catraca se o aluno tiver idade maior ou igual a 18 anos <strong>E</strong> atestado médico válido (representado por <code>atestado == 1</code>).<br><br>
+                    Considerando <code>idade = 22</code> e <code>atestado = 1</code>, qual das expressões condicionais em C retornará verdadeiro (1)?
                 </div>
                 <div class="options">
-                    <label class="option-label"><input type="radio" name="Q06" value="A" required> <span><strong>A)</strong> Porque o método <code>withColumn</code> converte automaticamente o DataFrame distribuído em uma lista local na memória do driver Python antes de multiplicar as colunas.</span></label>
-                    <label class="option-label"><input type="radio" name="Q06" value="B"> <span><strong>B)</strong> Porque elimina laços <code>for</code> em Python ao executar operações distribuídas por partição, permitindo que os motores Catalyst & Tungsten compilem o plano em bytecode JVM nativo.</span></label>
-                    <label class="option-label"><input type="radio" name="Q06" value="C"> <span><strong>C)</strong> Porque a função <code>F.round</code> dispara imediatamente uma ação de shuffle no cluster, descartando a necessidade de otimização pelo Catalyst.</span></label>
-                    <label class="option-label"><input type="radio" name="Q06" value="D"> <span><strong>D)</strong> Porque cada chamada de <code>withColumn</code> grava um arquivo intermediário em NDJSON no disco, evitando o consumo de memória JVM.</span></label>
+                    <label class="option-label"><input type="radio" name="Q06" value="A" required> <span><strong>A)</strong> <code>(idade &lt; 18 || atestado == 0)</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q06" value="B"> <span><strong>B)</strong> <code>!(idade &gt;= 18)</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q06" value="C"> <span><strong>C)</strong> <code>(idade &gt;= 18 &amp;&amp; atestado == 1)</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q06" value="D"> <span><strong>D)</strong> <code>(idade == 18 &amp;&amp; atestado == 0)</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q06" value="E"> <span><strong>E)</strong> <code>(idade &gt; 30 || atestado == 2)</code></span></label>
                 </div>
             </div>
 
@@ -478,13 +497,19 @@
             <div class="card question-card">
                 <div class="question-header">QUESTÃO 07</div>
                 <div class="question-text">
-                    Na análise avançada de datasets com PySpark, qual função de janela (<em>Window Function</em>) é aplicada especificamente para realizar análise temporal, como comparar o resultado do mês atual com o do mês anterior?
+                    Examine o laço de repetição <code>for</code> abaixo, projetado para emitir etiquetas de lote de produção em uma impressora industrial:
+                    <pre class="code-block"><span class="code-keyword">int</span> i;
+<span class="code-keyword">for</span> (i = <span class="code-number">5</span>; i &lt;= <span class="code-number">25</span>; i += <span class="code-number">5</span>) {
+    <span class="code-func">printf</span>(<span class="code-string">"Etiqueta lote %d\n"</span>, i);
+}</pre>
+                    Quantas vezes a mensagem <code>"Etiqueta lote"</code> será impressa na tela?
                 </div>
                 <div class="options">
-                    <label class="option-label"><input type="radio" name="Q07" value="A" required> <span><strong>A)</strong> <code>explode</code></span></label>
-                    <label class="option-label"><input type="radio" name="Q07" value="B"> <span><strong>B)</strong> <code>LAG</code></span></label>
-                    <label class="option-label"><input type="radio" name="Q07" value="C"> <span><strong>C)</strong> <code>StructField</code></span></label>
-                    <label class="option-label"><input type="radio" name="Q07" value="D"> <span><strong>D)</strong> <code>countDistinct</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q07" value="A" required> <span><strong>A)</strong> 5 vezes</span></label>
+                    <label class="option-label"><input type="radio" name="Q07" value="B"> <span><strong>B)</strong> 10 vezes</span></label>
+                    <label class="option-label"><input type="radio" name="Q07" value="C"> <span><strong>C)</strong> 25 vezes</span></label>
+                    <label class="option-label"><input type="radio" name="Q07" value="D"> <span><strong>D)</strong> 4 vezes</span></label>
+                    <label class="option-label"><input type="radio" name="Q07" value="E"> <span><strong>E)</strong> 6 vezes</span></label>
                 </div>
             </div>
 
@@ -492,13 +517,19 @@
             <div class="card question-card">
                 <div class="question-header">QUESTÃO 08</div>
                 <div class="question-text">
-                    Em um pipeline PySpark que encadeia <code>.groupBy("canal_venda", "cidade_filial")</code>, <code>.agg(countDistinct, sum, avg)</code>, <code>.sort(desc())</code> e, por fim, <code>.show()</code>, qual é o papel específico da chamada <code>.show()</code>?
+                    Analise a estrutura de repetição <code>while</code> em um algoritmo que controla a drenagem automática do reservatório de combustível de um gerador:
+                    <pre class="code-block"><span class="code-keyword">int</span> combustivel = <span class="code-number">40</span>;
+<span class="code-keyword">while</span> (combustivel &gt; <span class="code-number">0</span>) {
+    combustivel -= <span class="code-number">12</span>;
+}</pre>
+                    Qual será o valor final acumulado na variável <code>combustivel</code> após o término da execução do laço?
                 </div>
                 <div class="options">
-                    <label class="option-label"><input type="radio" name="Q08" value="A" required> <span><strong>A)</strong> Apenas definir as chaves de particionamento no cluster sem iniciar qualquer processamento.</span></label>
-                    <label class="option-label"><input type="radio" name="Q08" value="B"> <span><strong>B)</strong> Ordenar os canais mais rentáveis no topo do DataFrame de forma preguiçosa.</span></label>
-                    <label class="option-label"><input type="radio" name="Q08" value="C"> <span><strong>C)</strong> Atuar como uma ação que compila o DAG, executa o shuffle distribuído e exibe os resultados.</span></label>
-                    <label class="option-label"><input type="radio" name="Q08" value="D"> <span><strong>D)</strong> Inferir automaticamente o esquema das colunas agregadas antes da leitura do arquivo JSON.</span></label>
+                    <label class="option-label"><input type="radio" name="Q08" value="A" required> <span><strong>A)</strong> 4</span></label>
+                    <label class="option-label"><input type="radio" name="Q08" value="B"> <span><strong>B)</strong> -8</span></label>
+                    <label class="option-label"><input type="radio" name="Q08" value="C"> <span><strong>C)</strong> 0</span></label>
+                    <label class="option-label"><input type="radio" name="Q08" value="D"> <span><strong>D)</strong> -12</span></label>
+                    <label class="option-label"><input type="radio" name="Q08" value="E"> <span><strong>E)</strong> 16</span></label>
                 </div>
             </div>
 
@@ -506,24 +537,200 @@
             <div class="card question-card">
                 <div class="question-header">QUESTÃO 09</div>
                 <div class="question-text">
-                    Considere uma tabela de colaboradores contendo os seguintes registros:
-                    <table class="data-table">
-                        <thead>
-                            <tr><th>Colaborador</th><th>Depto</th><th>Salário</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Ana</td><td>TI</td><td>12.000</td></tr>
-                            <tr><td>Bruno</td><td>TI</td><td>8.000</td></tr>
-                            <tr><td>Carla</td><td>RH</td><td>5.000</td></tr>
-                        </tbody>
-                    </table>
-                    Ao aplicar uma <code>Window Function</code> particionada por departamento para calcular a média salarial do setor e o ranking salarial interno (do maior para o menor salário), qual será o resultado exibido para o registro de <strong>Bruno</strong>?
+                    Um sensor pneumático monitora a despressurização de um pistão industrial (variável <code>pressao</code>) durante um ciclo de trabalho em C:
+                    <pre class="code-block"><span class="code-keyword">int</span> pressao = <span class="code-number">25</span>;
+<span class="code-keyword">while</span> (pressao &gt; <span class="code-number">0</span>) {
+    pressao -= <span class="code-number">6</span>;
+}</pre>
+                    Qual será o valor exato armazenado na variável <code>pressao</code> no momento em que o laço encerra sua execução?
                 </div>
                 <div class="options">
-                    <label class="option-label"><input type="radio" name="Q09" value="A" required> <span><strong>A)</strong> A linha de Bruno será omitida, restando apenas uma linha consolidada para o departamento de TI com média 10.000.</span></label>
-                    <label class="option-label"><input type="radio" name="Q09" value="B"> <span><strong>B)</strong> Bruno aparecerá com Salário 8.000, Média Depto 10.000 e Rank 2º, mantendo sua linha individual no dataset.</span></label>
-                    <label class="option-label"><input type="radio" name="Q09" value="C"> <span><strong>C)</strong> Bruno aparecerá com Salário 8.000, Média Depto 8.333 (média geral da empresa) e Rank 3º.</span></label>
-                    <label class="option-label"><input type="radio" name="Q09" value="D"> <span><strong>D)</strong> Bruno aparecerá com Salário 10.000, Média Depto 12.000 e Rank 1º, pois a Window Function sobrescreve o salário original pela média do grupo.</span></label>
+                    <label class="option-label"><input type="radio" name="Q09" value="A" required> <span><strong>A)</strong> 1</span></label>
+                    <label class="option-label"><input type="radio" name="Q09" value="B"> <span><strong>B)</strong> 0</span></label>
+                    <label class="option-label"><input type="radio" name="Q09" value="C"> <span><strong>C)</strong> -1</span></label>
+                    <label class="option-label"><input type="radio" name="Q09" value="D"> <span><strong>D)</strong> 5</span></label>
+                    <label class="option-label"><input type="radio" name="Q09" value="E"> <span><strong>E)</strong> -5</span></label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 10 -->
+            <div class="card question-card">
+                <div class="question-header">QUESTÃO 10</div>
+                <div class="question-text">
+                    Considere o seguinte algoritmo em C que contabiliza a quantidade de números pares dentro de uma sequência de amostragem:
+                    <pre class="code-block"><span class="code-keyword">int</span> i, pares = <span class="code-number">0</span>;
+<span class="code-keyword">for</span> (i = <span class="code-number">1</span>; i &lt;= <span class="code-number">8</span>; i++) {
+    <span class="code-keyword">if</span> (i % <span class="code-number">2</span> == <span class="code-number">0</span>) {
+        pares++;
+    }
+}</pre>
+                    Qual será o valor final acumulado na variável <code>pares</code> ao término do laço?
+                </div>
+                <div class="options">
+                    <label class="option-label"><input type="radio" name="Q10" value="A" required> <span><strong>A)</strong> 2</span></label>
+                    <label class="option-label"><input type="radio" name="Q10" value="B"> <span><strong>B)</strong> 8</span></label>
+                    <label class="option-label"><input type="radio" name="Q10" value="C"> <span><strong>C)</strong> 3</span></label>
+                    <label class="option-label"><input type="radio" name="Q10" value="D"> <span><strong>D)</strong> 4</span></label>
+                    <label class="option-label"><input type="radio" name="Q10" value="E"> <span><strong>E)</strong> 0</span></label>
+                </div>
+            </div>
+
+            <!-- ================= UNIDADE CURRICULAR: BANCO DE DADOS ================= -->
+            <div class="section-divider">UNIDADE CURRICULAR – BANCO DE DADOS (Questões 11 a 20)</div>
+
+            <!-- QUESTÃO 11 -->
+            <div class="card question-card">
+                <div class="question-header">QUESTÃO 11</div>
+                <div class="question-text">
+                    No Modelo Entidade-Relacionamento (MER), a representação conceitual da associação entre duas entidades que reflete uma regra do negócio (como <em>"Aluno MATRICULA-SE EM Disciplina"</em>) é denominada:
+                </div>
+                <div class="options">
+                    <label class="option-label"><input type="radio" name="Q11" value="A" required> <span><strong>A)</strong> Relacionamento</span></label>
+                    <label class="option-label"><input type="radio" name="Q11" value="B"> <span><strong>B)</strong> Chave Estrangeira</span></label>
+                    <label class="option-label"><input type="radio" name="Q11" value="C"> <span><strong>C)</strong> Atributo Multivalorado</span></label>
+                    <label class="option-label"><input type="radio" name="Q11" value="D"> <span><strong>D)</strong> Entidade Fraca</span></label>
+                    <label class="option-label"><input type="radio" name="Q11" value="E"> <span><strong>E)</strong> SGBD</span></label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 12 -->
+            <div class="card question-card">
+                <div class="question-header">QUESTÃO 12</div>
+                <div class="question-text">
+                    Durante a especificação dos requisitos de software de uma plataforma de e-commerce, a equipe de banco de dados constrói o Diagrama Entidade-Relacionamento (DER).<br><br>
+                    Qual é o objetivo fundamental dessa etapa de modelagem conceitual antes de codificar em SQL?
+                </div>
+                <div class="options">
+                    <label class="option-label"><input type="radio" name="Q12" value="A" required> <span><strong>A)</strong> Executar testes de estresse para mensurar a largura de banda da rede da empresa.</span></label>
+                    <label class="option-label"><input type="radio" name="Q12" value="B"> <span><strong>B)</strong> Automatizar a rotina diária de backup e restauração no servidor.</span></label>
+                    <label class="option-label"><input type="radio" name="Q12" value="C"> <span><strong>C)</strong> Criptografar as tabelas do banco de dados relacional em tempo de execução.</span></label>
+                    <label class="option-label"><input type="radio" name="Q12" value="D"> <span><strong>D)</strong> Substituir a necessidade de escrever comandos SQL no SGBD.</span></label>
+                    <label class="option-label"><input type="radio" name="Q12" value="E"> <span><strong>E)</strong> Mapear a estrutura, as entidades e as regras de negócio dos dados antes da programação no SQL.</span></label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 13 -->
+            <div class="card question-card">
+                <div class="question-header">QUESTÃO 13</div>
+                <div class="question-text">
+                    Em um sistema de gestão escolar, definiu-se a seguinte regra de negócio: <em>"Cada Aluno possui apenas Um Prontuário Médico, e cada Prontuário Médico pertence a apenas Um Aluno"</em>.<br><br>
+                    Qual é a cardinalidade desse relacionamento?
+                </div>
+                <div class="options">
+                    <label class="option-label"><input type="radio" name="Q13" value="A" required> <span><strong>A)</strong> 1:N (Um para Muitos)</span></label>
+                    <label class="option-label"><input type="radio" name="Q13" value="B"> <span><strong>B)</strong> N:M (Muitos para Muitos)</span></label>
+                    <label class="option-label"><input type="radio" name="Q13" value="C"> <span><strong>C)</strong> 1:1 (Um para Um)</span></label>
+                    <label class="option-label"><input type="radio" name="Q13" value="D"> <span><strong>D)</strong> N:1 (Muitos para Um)</span></label>
+                    <label class="option-label"><input type="radio" name="Q13" value="E"> <span><strong>E)</strong> 0:0 (Indefinida)</span></label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 14 -->
+            <div class="card question-card">
+                <div class="question-header">QUESTÃO 14</div>
+                <div class="question-text">
+                    Considere o relacionamento entre as entidades <code>Departamento</code> e <code>Funcionario</code>, em que um Departamento pode possuir Vários Funcionários, mas cada Funcionário pertence a apenas Um Departamento (1:N).<br><br>
+                    Ao mapear esse modelo conceitual para o banco de dados relacional, como a associação deve ser implementada?
+                </div>
+                <div class="options">
+                    <label class="option-label"><input type="radio" name="Q14" value="A" required> <span><strong>A)</strong> Inserindo a chave primária de Funcionario como chave estrangeira na tabela Departamento.</span></label>
+                    <label class="option-label"><input type="radio" name="Q14" value="B"> <span><strong>B)</strong> Inserindo a chave primária de Departamento como chave estrangeira (FK) na tabela Funcionario.</span></label>
+                    <label class="option-label"><input type="radio" name="Q14" value="C"> <span><strong>C)</strong> Criando uma terceira tabela obrigatória chamada Departamento_Funcionario.</span></label>
+                    <label class="option-label"><input type="radio" name="Q14" value="D"> <span><strong>D)</strong> Eliminando a tabela Departamento e unindo todos os campos na tabela Funcionario.</span></label>
+                    <label class="option-label"><input type="radio" name="Q14" value="E"> <span><strong>E)</strong> Convertendo o campo Departamento em um atributo multivalorado.</span></label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 15 -->
+            <div class="card question-card">
+                <div class="question-header">QUESTÃO 15</div>
+                <div class="question-text">
+                    O administrador de banco de dados de uma concessionária precisa criar uma nova base de dados estruturada no MySQL para armazenar o catálogo de veículos chamada <code>db_concessionaria</code>.<br><br>
+                    Qual comando SQL DDL deve ser executado?
+                </div>
+                <div class="options">
+                    <label class="option-label"><input type="radio" name="Q15" value="A" required> <span><strong>A)</strong> <code>CREATE TABLE db_concessionaria;</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q15" value="B"> <span><strong>B)</strong> <code>INSERT DATABASE db_concessionaria;</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q15" value="C"> <span><strong>C)</strong> <code>MAKE DATABASE db_concessionaria;</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q15" value="D"> <span><strong>D)</strong> <code>CREATE DATABASE db_concessionaria;</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q15" value="E"> <span><strong>E)</strong> <code>NEW SCHEMA db_concessionaria;</code></span></label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 16 -->
+            <div class="card question-card">
+                <div class="question-header">QUESTÃO 16</div>
+                <div class="question-text">
+                    Deseja-se criar uma tabela chamada <code>clientes</code> contendo o campo <code>id_cli</code> (inteiro e chave primária) e o campo <code>cpf</code> (texto fixo de 11 caracteres).<br><br>
+                    Qual a sintaxe SQL correta?
+                </div>
+                <div class="options">
+                    <label class="option-label"><input type="radio" name="Q16" value="A" required> <span><strong>A)</strong> <code>CREATE TABLE clientes (id_cli INT PRIMARY KEY, cpf CHAR(11));</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q16" value="B"> <span><strong>B)</strong> <code>CREATE DATABASE clientes (id_cli INT, cpf TEXT);</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q16" value="C"> <span><strong>C)</strong> <code>MAKE TABLE clientes (id_cli KEY, cpf VARCHAR(11));</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q16" value="D"> <span><strong>D)</strong> <code>ADD TABLE clientes (id_cli INT PRIMARY, cpf STRING);</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q16" value="E"> <span><strong>E)</strong> <code>NEW TABLE clientes (id_cli INT PK, cpf CHAR(11));</code></span></label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 17 -->
+            <div class="card question-card">
+                <div class="question-header">QUESTÃO 17</div>
+                <div class="question-text">
+                    Um desenvolvedor precisa cadastrar um novo item na tabela <code>produtos</code> contendo as colunas <code>id</code>, <code>nome</code> e <code>categoria</code>.<br><br>
+                    Qual instrução SQL DML executa essa inserção corretamente?
+                </div>
+                <div class="options">
+                    <label class="option-label"><input type="radio" name="Q17" value="A" required> <span><strong>A)</strong> <code>ADD INTO produtos VALUES (50, 'Teclado', 'Periféricos');</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q17" value="B"> <span><strong>B)</strong> <code>UPDATE produtos SET nome='Teclado', categoria='Periféricos' WHERE id=50;</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q17" value="C"> <span><strong>C)</strong> <code>INSERT INTO produtos (id, nome, categoria) VALUES (50, 'Teclado', 'Periféricos');</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q17" value="D"> <span><strong>D)</strong> <code>CREATE RECORD produtos (50, 'Teclado', 'Periféricos');</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q17" value="E"> <span><strong>E)</strong> <code>SELECT INTO produtos VALUES (50, 'Teclado', 'Periféricos');</code></span></label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 18 -->
+            <div class="card question-card">
+                <div class="question-header">QUESTÃO 18</div>
+                <div class="question-text">
+                    Qual é a função primordial de uma <strong>Chave Primária (Primary Key)</strong> em uma tabela de banco de dados relacional?
+                </div>
+                <div class="options">
+                    <label class="option-label"><input type="radio" name="Q18" value="A" required> <span><strong>A)</strong> Estabelecer conexões diretas entre servidores de bancos de dados externos.</span></label>
+                    <label class="option-label"><input type="radio" name="Q18" value="B"> <span><strong>B)</strong> Permitir que múltiplos registros compartilhem o mesmo código identificador sem restrições.</span></label>
+                    <label class="option-label"><input type="radio" name="Q18" value="C"> <span><strong>C)</strong> Criptografar automaticamente informações confidenciais salvas no sistema.</span></label>
+                    <label class="option-label"><input type="radio" name="Q18" value="D"> <span><strong>D)</strong> Identificar cada registro de forma única e exclusiva, impedindo duplicidades e valores nulos.</span></label>
+                    <label class="option-label"><input type="radio" name="Q18" value="E"> <span><strong>E)</strong> Salvar automaticamente o histórico de alterações realizadas no banco.</span></label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 19 -->
+            <div class="card question-card">
+                <div class="question-header">QUESTÃO 19</div>
+                <div class="question-text">
+                    Qual das opções a seguir apresenta a definição tecnicamente correta sobre o conceito e o comportamento de uma <strong>Chave Primária (Primary Key)</strong> no modelo relacional?
+                </div>
+                <div class="options">
+                    <label class="option-label"><input type="radio" name="Q19" value="A" required> <span><strong>A)</strong> É uma coluna ou conjunto de colunas que identifica de modo único cada registro da tabela, proibindo valores duplicados e nulos.</span></label>
+                    <label class="option-label"><input type="radio" name="Q19" value="B"> <span><strong>B)</strong> É uma coluna utilizada exclusivamente para vincular tabelas de outros bancos externos.</span></label>
+                    <label class="option-label"><input type="radio" name="Q19" value="C"> <span><strong>C)</strong> É o comando SQL responsável por realizar rotinas automáticas de backup no servidor.</span></label>
+                    <label class="option-label"><input type="radio" name="Q19" value="D"> <span><strong>D)</strong> É um campo que armazena obrigatoriamente senhas e hashs de autenticação.</span></label>
+                    <label class="option-label"><input type="radio" name="Q19" value="E"> <span><strong>E)</strong> É um atributo que permite valores repetidos a fim de acelerar consultas de busca.</span></label>
+                </div>
+            </div>
+
+            <!-- QUESTÃO 20 -->
+            <div class="card question-card">
+                <div class="question-header">QUESTÃO 20</div>
+                <div class="question-text">
+                    Para atualizar o salário de um colaborador cujo código identificador é <code>id = 12</code> para o novo valor de <code>R$ 4500.00</code> na tabela <code>funcionarios</code>, qual comando SQL DML deve ser utilizado?
+                </div>
+                <div class="options">
+                    <label class="option-label"><input type="radio" name="Q20" value="A" required> <span><strong>A)</strong> <code>CHANGE funcionarios SET salario = 4500.00 WHERE id = 12;</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q20" value="B"> <span><strong>B)</strong> <code>MODIFY funcionarios SET salario = 4500.00 WHERE id = 12;</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q20" value="C"> <span><strong>C)</strong> <code>INSERT INTO funcionarios SET salario = 4500.00 WHERE id = 12;</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q20" value="D"> <span><strong>D)</strong> <code>ALTER TABLE funcionarios UPDATE salario = 4500.00 WHERE id = 12;</code></span></label>
+                    <label class="option-label"><input type="radio" name="Q20" value="E"> <span><strong>E)</strong> <code>UPDATE funcionarios SET salario = 4500.00 WHERE id = 12;</code></span></label>
                 </div>
             </div>
 
@@ -535,10 +742,10 @@
         <!-- TELA 3: RECIBO DE CONCLUSÃO -->
         <div id="receiptScreen" class="card hidden">
             <h2 style="color: var(--secondary); margin-bottom: 12px;">Avaliação Encerrada e Enviada!</h2>
-            <p style="margin-bottom: 16px;">Suas respostas foram registradas e encaminhadas ao e-mail institucional do docente (<strong>gabriel.rodrigues@unidesc.edu.br</strong>).</p>
+            <p style="margin-bottom: 16px;">Suas respostas foram registradas e encaminhadas ao e-mail institucional do docente (<strong>gabrielmalaquias@fieg.com.br</strong>).</p>
             
             <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 20px;">
-                <p><strong>Acadêmico(a):</strong> <span id="recName"></span></p>
+                <p><strong>Aluno(a):</strong> <span id="recName"></span></p>
                 <p><strong>Tempo Total:</strong> <span id="recTime"></span></p>
                 <p><strong>Status de Integridade:</strong> <span id="recStatus" class="status-badge"></span></p>
                 <p style="margin-top: 8px; font-size: 0.85rem; color: #64748b;" id="recLog"></p>
@@ -555,7 +762,7 @@
         <div class="modal-content">
             <h2>🚨 VIOLAÇÃO DE INTEGRIDADE DETECTADA</h2>
             <p style="margin-bottom: 16px;" id="penaltyMessage">
-                Você saiu da aba ou perdeu o foco da janela da avaliação durante a prova. Conforme as regras estabelecidas para a VA 2, essa ação configura tentativa de consulta indevida.
+                Você saiu da aba ou perdeu o foco da janela da avaliação durante a prova. Conforme as regras estabelecidas para a avaliação online, essa ação configura tentativa de consulta indevida.
             </p>
             <p style="font-weight: bold; color: var(--danger); margin-bottom: 20px;">
                 A avaliação foi encerrada automaticamente com penalidade aplicada (Nota 0,0) e o relatório foi enviado ao Prof. Gabriel Malaquias Rodrigues.
@@ -567,20 +774,32 @@
     <script>
         // ================= CONFIGURAÇÕES DA AVALIAÇÃO =================
         const DURACAO_MINUTOS = 50;
+        const TOTAL_QUESTOES = 20;
         const MAX_VIOLACOES = 1; // 1 = Penaliza e encerra imediatamente na primeira saída de aba
-        const DOCENTE_EMAIL = "gabriel.rodrigues@unidesc.edu.br";
+        const DOCENTE_EMAIL = "gabrielmalaquias@fieg.com.br";
 
-        // Gabarito oficial extraído do documento para pré-correção no e-mail do professor
+        // Gabarito oficial (Q01-Q10: Lógica de Programação | Q11-Q20: Banco de Dados)
         const GABARITO = {
-            Q01: "B",
-            Q02: "C",
-            Q03: "A",
+            Q01: "C",
+            Q02: "A",
+            Q03: "E",
             Q04: "B",
-            Q05: "A",
-            Q06: "B",
-            Q07: "B",
-            Q08: "C",
-            Q09: "B"
+            Q05: "D",
+            Q06: "C",
+            Q07: "A",
+            Q08: "B",
+            Q09: "C",
+            Q10: "D",
+            Q11: "A",
+            Q12: "E",
+            Q13: "C",
+            Q14: "B",
+            Q15: "D",
+            Q16: "A",
+            Q17: "C",
+            Q18: "D",
+            Q19: "A",
+            Q20: "E"
         };
 
         // ================= VARIÁVEIS DE CONTROLE =================
@@ -605,7 +824,7 @@
             // Preenche campos ocultos
             document.getElementById("hiddenName").value = name;
             document.getElementById("hiddenEmail").value = email;
-            document.getElementById("emailSubject").value = `VA 2 Big Data - ${name}`;
+            document.getElementById("emailSubject").value = `Avaliação 4º Bimestre (Lógica e BD) - ${name}`;
 
             // Alterna telas
             document.getElementById("introScreen").classList.add("hidden");
@@ -617,7 +836,7 @@
             activateAntiCheat();
         }
 
-        // ================= TEMPORIZADOR (50 MINUTOS) =================
+        // ================= TEMPORIZADOR =================
         function startTimer() {
             const display = document.getElementById("timerDisplay");
             timerInterval = setInterval(() => {
@@ -643,21 +862,18 @@
 
         // ================= SISTEMA ANTI-COLA (ABA / FOCO) =================
         function activateAntiCheat() {
-            // Detecta mudança de aba ou minimização
             document.addEventListener("visibilitychange", () => {
                 if (document.hidden && examActive && !examSubmitted) {
                     registerViolation("Troca de aba ou minimização do navegador (visibilitychange)");
                 }
             });
 
-            // Detecta perda de foco da janela (ex: Alt+Tab, clicar em outro programa/monitor)
             window.addEventListener("blur", () => {
                 if (examActive && !examSubmitted) {
                     registerViolation("Perda de foco da janela da prova (window blur)");
                 }
             });
 
-            // Bloqueia atalhos de teclado comuns de cola/inspeção
             document.addEventListener("keydown", (e) => {
                 if (!examActive) return;
                 if (
@@ -669,7 +885,6 @@
                 }
             });
 
-            // Alerta caso tente fechar ou recarregar a página
             window.onbeforeunload = function() {
                 if (examActive && !examSubmitted) {
                     return "A prova está em andamento. Sair agora invalidará sua avaliação.";
@@ -696,12 +911,11 @@
 
         // ================= SUBMISSÃO E CÁLCULO =================
         function manualSubmit() {
-            // Verifica se todas as questões foram respondidas
-            for (let i = 1; i <= 9; i++) {
-                const qName = `Q0${i}`;
+            for (let i = 1; i <= TOTAL_QUESTOES; i++) {
+                const qName = `Q${String(i).padStart(2, '0')}`;
                 const checked = document.querySelector(`input[name="${qName}"]:checked`);
                 if (!checked) {
-                    alert(`Você ainda não respondeu a QUESTÃO 0${i}. Responda todas as questões antes de finalizar.`);
+                    alert(`Você ainda não respondeu a QUESTÃO ${String(i).padStart(2, '0')}. Responda todas as questões antes de finalizar.`);
                     return;
                 }
             }
@@ -725,31 +939,39 @@
             const secsSpent = diffSecs % 60;
             const timeFormatted = `${minsSpent} min e ${secsSpent} seg`;
 
-            // Coleta respostas e calcula pontuação
-            let acertos = 0;
+            // Coleta respostas e calcula pontuação por disciplina e total
+            let acertosLogica = 0;
+            let acertosBD = 0;
             let resumoRespostas = "";
 
-            for (let i = 1; i <= 9; i++) {
-                const qName = `Q0${i}`;
+            for (let i = 1; i <= TOTAL_QUESTOES; i++) {
+                const qName = `Q${String(i).padStart(2, '0')}`;
                 const checked = document.querySelector(`input[name="${qName}"]:checked`);
                 const resp = checked ? checked.value : "EM BRANCO";
                 const correta = GABARITO[qName];
                 const acertou = resp === correta;
-                if (acertou) acertos++;
+
+                if (acertou) {
+                    if (i <= 10) acertosLogica++;
+                    else acertosBD++;
+                }
 
                 resumoRespostas += `${qName}: Marcada [${resp}] | Gabarito [${correta}] -> ${acertou ? "OK" : "ERRO"}\n`;
             }
 
-            // Se houve violação de aba, zera a nota final
-            const notaFinal = isPenalized ? "0.0 (ANULADA POR INFRAÇÃO)" : ((acertos / 9) * 10).toFixed(2);
+            const acertosTotais = acertosLogica + acertosBD;
+            const notaFinal = isPenalized ? "0.0 (ANULADA POR INFRAÇÃO)" : ((acertosTotais / TOTAL_QUESTOES) * 10).toFixed(2);
 
             // Atualiza inputs ocultos do formulário
             document.getElementById("hiddenIntegrity").value = statusLabel;
             document.getElementById("hiddenViolations").value = violationCount;
             document.getElementById("hiddenLog").value = violationLogs.length > 0 ? violationLogs.join(" | ") : "Nenhuma infração.";
             document.getElementById("hiddenTimeSpent").value = timeFormatted;
-            document.getElementById("hiddenScore").value = `${acertos} de 9 questões`;
+            document.getElementById("hiddenScoreLogic").value = `${acertosLogica} de 10 questões`;
+            document.getElementById("hiddenScoreDB").value = `${acertosBD} de 10 questões`;
+            document.getElementById("hiddenScore").value = `${acertosTotais} de ${TOTAL_QUESTOES} questões`;
             document.getElementById("hiddenGrade").value = notaFinal;
+            document.getElementById("hiddenAnswersDetail").value = resumoRespostas;
 
             // Preenche recibo visual
             const name = document.getElementById("hiddenName").value;
@@ -765,21 +987,23 @@
 
             // Configura link mailto de fallback
             const mailBody = encodeURIComponent(
-                `RELATÓRIO DE AVALIAÇÃO - VA 2 BIG DATA (APACHE SPARK)\n` +
-                `=====================================================\n` +
+                `RELATÓRIO DE AVALIAÇÃO - 4º BIMESTRE (DESENVOLVIMENTO DE SISTEMAS)\n` +
+                `=====================================================================\n` +
                 `Aluno: ${name}\n` +
                 `E-mail: ${document.getElementById("hiddenEmail").value}\n` +
                 `Tempo utilizado: ${timeFormatted}\n` +
                 `Status de Integridade: ${statusLabel}\n` +
                 `Ocorrências de troca de aba: ${violationCount}\n` +
                 `Log: ${violationLogs.join(" | ") || "Limpo"}\n` +
-                `Acertos: ${acertos}/9\n` +
+                `Acertos Lógica de Programação: ${acertosLogica}/10\n` +
+                `Acertos Banco de Dados: ${acertosBD}/10\n` +
+                `Acertos Totais: ${acertosTotais}/${TOTAL_QUESTOES}\n` +
                 `NOTA FINAL SUGERIDA: ${notaFinal}\n\n` +
                 `DETALHAMENTO DAS RESPOSTAS:\n${resumoRespostas}`
             );
-            document.getElementById("mailtoFallback").href = `mailto:${DOCENTE_EMAIL}?subject=${encodeURIComponent("VA 2 Big Data - " + name)}&body=${mailBody}`;
+            document.getElementById("mailtoFallback").href = `mailto:${DOCENTE_EMAIL}?subject=${encodeURIComponent("Avaliação 4º Bimestre (Lógica e BD) - " + name)}&body=${mailBody}`;
 
-            // Envio assíncrono via Fetch para o FormSubmit (evita recarregar a página e perder o recibo)
+            // Envio assíncrono via Fetch para o FormSubmit
             const form = document.getElementById("examForm");
             const formData = new FormData(form);
 
